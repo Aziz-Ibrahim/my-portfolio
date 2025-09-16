@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import {
   Github, ExternalLink, Mail, Linkedin, ChevronDown, Menu, X, Download, Code, Server, Globe, Send
@@ -23,6 +24,7 @@ import { useMediaQuery } from '@mantine/hooks';
 
 import { personalInfo, heroContent, aboutContent, projects, contactInfo } from './content';
 import ContactForm from './ContactForm';
+import SocialLink from './SocialLink'; // <--- Import the new component here
 
 // A mapping object for Lucide icons to be used with Mantine components
 const iconMap = {
@@ -165,27 +167,20 @@ const Portfolio = () => {
                     <Title order={1} size="h1" fw={700} c="dark" mb="xs">{personalInfo.name}</Title>
                     <Title order={2} size="h3" fw={500} c="dimmed" mb="md">{personalInfo.title}</Title>
                     <Text fz="lg" c="dimmed" maw={600} mx="auto" mb="xl">{personalInfo.tagline}</Text>
-                    <Group spacing="xl" position="center" mb="xl">
+                    <Flex gap="xl" justify="center" align="center" mb="xl">
                         {heroContent.socialLinks.map((link, index) => (
-                            <Anchor
-                                key={index}
-                                href={link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                c="dimmed"
-                                sx={{ '&:hover': { transform: 'scale(1.1)', transition: 'transform 0.2s' } }}
-                            >
-                                {React.createElement(iconMap[link.icon], { size: 32 })}
-                            </Anchor>
+                            <SocialLink key={index} link={link} iconMap={iconMap} />
                         ))}
-                    </Group>
+                    </Flex>
                     <Button
                         onClick={() => scrollToSection(heroContent.cta.link)}
-                        rightIcon={React.createElement(iconMap[heroContent.cta.icon])}
                         size="lg"
                         color="blue"
                     >
-                        {heroContent.cta.text}
+                        <Group spacing="xs">
+                            <Text>{heroContent.cta.text}</Text>
+                            {React.createElement(iconMap[heroContent.cta.icon])}
+                        </Group>
                     </Button>
                 </Container>
             </Box>
@@ -289,15 +284,17 @@ const Portfolio = () => {
                                     <Button
                                         key={index}
                                         component="a"
-                                        href={link.href}
+                                        href={link.href === '/my-cv.pdf' ? '/my-cv.pdf' : link.href}
                                         target={link.text === 'Download My CV' ? '_self' : '_blank'}
                                         rel="noopener noreferrer"
                                         fullWidth
                                         variant={link.text === 'Email Me' ? 'filled' : link.text === 'LinkedIn' ? 'outline' : 'filled'}
                                         color={link.text === 'Email Me' ? 'blue' : link.text === 'LinkedIn' ? 'blue' : 'green'}
-                                        leftIcon={React.createElement(iconMap[link.icon])}
                                     >
-                                        {link.text}
+                                        <Flex justify="center" align="center" gap="xs" wrap="nowrap">
+                                            {React.createElement(iconMap[link.icon])}
+                                            <Text>{link.text}</Text>
+                                        </Flex>
                                     </Button>
                                 ))}
                             </Stack>
