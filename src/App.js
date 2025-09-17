@@ -1,7 +1,9 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import {
-    Github, ExternalLink, Mail, Linkedin, ChevronDown, Menu, X, Download, Code, Server, Globe, Send
+    Github, ExternalLink,
+    Mail, Linkedin, ChevronDown,
+    Menu, X, Download, Code,
+    Server, Globe, Send
 } from 'lucide-react';
 import {
     Container,
@@ -16,15 +18,17 @@ import {
     Anchor,
     Paper,
     Badge,
-    SimpleGrid,
     useMantineTheme,
     Burger
 } from '@mantine/core';
+import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
 
-import { personalInfo, heroContent, aboutContent, projects, contactInfo } from './content';
+import {
+    personalInfo, heroContent, aboutContent, projects, contactInfo
+} from './content';
 import ContactForm from './ContactForm';
-import SocialLink from './SocialLink'; // <--- Import the new component here
+import SocialLink from './SocialLink';
 
 // A mapping object for Lucide icons to be used with Mantine components
 const iconMap = {
@@ -45,8 +49,8 @@ const iconMap = {
 const Portfolio = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
-    const theme = useMantineTheme();
-    const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
+    const mantineTheme = useMantineTheme(); // Renamed to avoid conflict
+    const isDesktop = useMediaQuery(`(min-width: ${mantineTheme.breakpoints.sm})`);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -84,18 +88,18 @@ const Portfolio = () => {
                 shadow="sm"
                 radius={0}
                 withBorder={false}
+                bg="mocha-mousse.7"
                 sx={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
                     right: 0,
                     zIndex: 100,
-                    backgroundColor: theme.colors.gray[0],
                 }}
             >
                 <Container size="xl" py="md">
                     <Flex justify="space-between" align="center">
-                        <Title order={4}>Aziz Ibrahim's Portfolio</Title>
+                        <Title order={4} c="white">Aziz Ibrahim's Portfolio</Title>
 
                         {/* Conditionally render desktop navigation */}
                         {isDesktop ? (
@@ -105,7 +109,7 @@ const Portfolio = () => {
                                         key={item}
                                         variant="subtle"
                                         onClick={() => scrollToSection(item.toLowerCase())}
-                                        color={activeSection === item.toLowerCase() ? 'blue' : 'dark'}
+                                        color={activeSection === item.toLowerCase() ? 'cream-accent' : 'gray.4'}
                                     >
                                         {item}
                                     </Button>
@@ -117,6 +121,7 @@ const Portfolio = () => {
                                 opened={isMenuOpen}
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                                 size="sm"
+                                color="white"
                             />
                         )}
                     </Flex>
@@ -126,9 +131,10 @@ const Portfolio = () => {
                 {isMenuOpen && !isDesktop && (
                     <Box
                         sx={{
-                            borderTop: `1px solid ${theme.colors.gray[2]}`,
-                            boxShadow: theme.shadows.sm,
-                            padding: theme.spacing.md,
+                            borderTop: `1px solid ${mantineTheme.colors.gray[2]}`,
+                            boxShadow: mantineTheme.shadows.sm,
+                            padding: mantineTheme.spacing.md,
+                            backgroundColor: mantineTheme.colors['mocha-mousse'][9],
                         }}
                     >
                         <Stack spacing="xs">
@@ -136,7 +142,7 @@ const Portfolio = () => {
                                 <Button
                                     key={item}
                                     variant={activeSection === item.toLowerCase() ? 'light' : 'subtle'}
-                                    color={activeSection === item.toLowerCase() ? 'blue' : 'dark'}
+                                    color={activeSection === item.toLowerCase() ? 'cream-accent' : 'gray.4'}
                                     onClick={() => scrollToSection(item.toLowerCase())}
                                 >
                                     {item}
@@ -148,19 +154,19 @@ const Portfolio = () => {
             </Paper>
 
             {/* Hero Section */}
-            <Box id="home" pt={120} pb={80} sx={{ background: theme.colors.blue[0] }}>
+            <Box id="home" pt={120} pb={80} sx={{ background: mantineTheme.colors['mocha-mousse'][0] }}>
                 <Container size="xl" ta="center">
                     <Box sx={{
                         width: 128,
                         height: 128,
                         margin: 'auto',
-                        marginBottom: theme.spacing.xl,
-                        background: `linear-gradient(45deg, ${theme.colors.blue[6]}, ${theme.colors.indigo[7]})`,
+                        marginBottom: mantineTheme.spacing.xl,
+                        background: `linear-gradient(45deg, ${mantineTheme.colors['mocha-mousse'][6]}, ${mantineTheme.colors['mocha-mousse'][9]})`,
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        boxShadow: theme.shadows.xl
+                        boxShadow: mantineTheme.shadows.xl
                     }}>
                         {React.createElement(iconMap[heroContent.icon], { size: 64, color: 'white' })}
                     </Box>
@@ -169,13 +175,13 @@ const Portfolio = () => {
                     <Text fz="lg" c="dimmed" maw={600} mx="auto" mb="xl">{personalInfo.tagline}</Text>
                     <Flex gap="xl" justify="center" align="center" mb="xl">
                         {heroContent.socialLinks.map((link, index) => (
-                            <SocialLink key={index} link={link} iconMap={iconMap} />
+                            <SocialLink key={index} link={link} iconMap={iconMap} color="mocha-mousse" />
                         ))}
                     </Flex>
                     <Button
                         onClick={() => scrollToSection(heroContent.cta.link)}
                         size="lg"
-                        color="blue"
+                        color="mocha-mousse"
                     >
                         <Group spacing="xs">
                             <Text>{heroContent.cta.text}</Text>
@@ -186,115 +192,114 @@ const Portfolio = () => {
             </Box>
 
             {/* About Section */}
-            <Box id="about" py={80} sx={{ background: theme.white }}>
+            <Box id="about" py={80} sx={{ background: mantineTheme.colors['cream-accent'][0] }}>
                 <Container size="xl">
-                    <Title order={2} size="h2" fw={700} ta="center" mb="xl">About Me</Title>
-                    <SimpleGrid
-                        cols={1} // Default for mobile
-                        spacing="xl"
-                        breakpoints={[
-                            { minWidth: 'sm', cols: 2 }, // On screens at or above 'sm', use 2 columns.
-                        ]}
-                    >
-                        <Box>
-                            {aboutContent.aboutText.map((paragraph, index) => (
-                                <Text key={index} fz="lg" c="dimmed" mb="md" sx={{ lineHeight: 1.6 }}>{paragraph}</Text>
-                            ))}
-                        </Box>
-                        <Stack spacing="xl">
-                            {Object.values(aboutContent.skills).map((skillSet, index) => (
-                                <Box key={index}>
-                                    <Title order={4} fw={600} c="dark" mb="sm" sx={{ display: 'flex', alignItems: 'center' }}>
-                                        {React.createElement(iconMap[skillSet.icon], { size: 20 })}
-                                        <Box component="span" ml="xs">{skillSet.title}</Box>
-                                    </Title>
-                                    <Group spacing="xs">
-                                        {skillSet.list.map((skill) => (
-                                            <Badge key={skill} size="md" radius="xl" color="blue" variant="light">{skill}</Badge>
-                                        ))}
-                                    </Group>
-                                </Box>
-                            ))}
-                        </Stack>
-                    </SimpleGrid>
+                    <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">About Me</Title>
+                    <Grid>
+                        <Grid.Col sm={12} md={6}>
+                            <Box>
+                                {aboutContent.aboutText.map((paragraph, index) => (
+                                    <Text key={index} fz="lg" c="dimmed" mb="md" sx={{ lineHeight: 1.6 }}>{paragraph}</Text>
+                                ))}
+                            </Box>
+                        </Grid.Col>
+                        <Grid.Col sm={12} md={6}>
+                            <Stack spacing="xl">
+                                {Object.values(aboutContent.skills).map((skillSet, index) => (
+                                    <Box key={index}>
+                                        <Title order={4} fw={600} c="dark" mb="sm" sx={{ display: 'flex', alignItems: 'center' }}>
+                                            {React.createElement(iconMap[skillSet.icon], { size: 20 })}
+                                            <Box component="span" ml="xs">{skillSet.title}</Box>
+                                        </Title>
+                                        <Group spacing="xs">
+                                            {skillSet.list.map((skill) => (
+                                                <Badge key={skill} size="md" radius="xl" color="mocha-mousse" variant="light">{skill}</Badge>
+                                            ))}
+                                        </Group>
+                                    </Box>
+                                ))}
+                            </Stack>
+                        </Grid.Col>
+                    </Grid>
                 </Container>
             </Box>
 
             {/* Projects Section */}
-            <Box id="projects" py={80} sx={{ background: theme.colors.gray[1] }}>
+            <Box id="projects" py={80} sx={{ background: mantineTheme.colors['mocha-mousse'][1] }}>
                 <Container size="xl">
-                    <Title order={2} size="h2" fw={700} ta="center" mb="xl">Featured Projects</Title>
-                    <SimpleGrid
-                        cols={1} // Default for mobile
-                        spacing="xl"
-                        breakpoints={[
-                            { minWidth: 'sm', cols: 2, spacing: 'md' }, // On screens at or above 'sm', use 2 columns.
-                            { minWidth: 'md', cols: 3, spacing: 'xl' }, // On screens at or above 'md', use 3 columns.
-                        ]}
+                    <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
+                    <Carousel
+                        withIndicators
+                        height={400}
+                        slideSize={{ base: '100%', sm: '50%', md: '33.333%' }}
+                        slideGap="xl"
+                        align="start"
+                        loop
                     >
                         {projects.map((project) => (
-                            <Paper key={project.id} p="md" shadow="md" radius="md" withBorder>
-                                <Stack spacing="sm">
-                                    <Title order={4} fw={700} c="dark">{project.title}</Title>
-                                    <Text c="dimmed" fz="sm">{project.description}</Text>
-                                    <Group spacing="xs">
-                                        {project.technologies.map((tech) => (
-                                            <Badge key={tech} size="sm" color="gray" variant="filled">{tech}</Badge>
-                                        ))}
-                                    </Group>
-                                    <Group spacing="sm">
-                                        <Anchor
-                                            href={project.liveUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            c="blue"
-                                            sx={{ display: 'flex', alignItems: 'center' }}
-                                        >
-                                            <ExternalLink size={16} />
-                                            <Text ml="xs">Live Demo</Text>
-                                        </Anchor>
-                                        <Anchor
-                                            href={project.githubUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            c="dimmed"
-                                            sx={{ display: 'flex', alignItems: 'center' }}
-                                        >
-                                            <Github size={16} />
-                                            <Text ml="xs">Code</Text>
-                                        </Anchor>
-                                    </Group>
-                                </Stack>
-                            </Paper>
+                            <Carousel.Slide key={project.id}>
+                                <Paper p="md" shadow="md" radius="md" withBorder>
+                                    <Stack spacing="sm">
+                                        <Title order={4} fw={700} c="dark">{project.title}</Title>
+                                        <Text c="dimmed" fz="sm">{project.description}</Text>
+                                        <Group spacing="xs">
+                                            {project.technologies.map((tech) => (
+                                                <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
+                                            ))}
+                                        </Group>
+                                        <Group spacing="sm">
+                                            <Anchor
+                                                href={project.liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                c="mocha-mousse"
+                                                sx={{ display: 'flex', alignItems: 'center' }}
+                                            >
+                                                <ExternalLink size={16} />
+                                                <Text ml="xs">Live Demo</Text>
+                                            </Anchor>
+                                            <Anchor
+                                                href={project.githubUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                c="dimmed"
+                                                sx={{ display: 'flex', alignItems: 'center' }}
+                                            >
+                                                <Github size={16} />
+                                                <Text ml="xs">Code</Text>
+                                            </Anchor>
+                                        </Group>
+                                    </Stack>
+                                </Paper>
+                            </Carousel.Slide>
                         ))}
-                    </SimpleGrid>
+                    </Carousel>
                 </Container>
             </Box>
 
             {/* Contact Section */}
-            <Box id="contact" py={80} sx={{ background: theme.white }}>
+            <Box id="contact" py={80} sx={{ background: mantineTheme.colors['cream-accent'][1] }}>
                 <Container size="xl">
-                    <Title order={2} size="h2" fw={700} ta="center" mb="xl">Get In Touch</Title>
-
+                    <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Get In Touch</Title>
                     <Grid>
                         <Grid.Col span={{ base: 12, md: 6 }}>
-                            <ContactForm />
+                            <Paper shadow="md" p="xl" radius="md">
+                                <ContactForm />
+                            </Paper>
                         </Grid.Col>
-
                         <Grid.Col span={{ base: 12, md: 6 }}>
                             <Title order={3} fw={600} c="dark" mb="md">Let's Connect</Title>
                             <Text fz="lg" c="dimmed" mb="xl" sx={{ lineHeight: 1.6 }}>{contactInfo.intro}</Text>
-
                             <Stack spacing="md">
                                 {contactInfo.links.map((link, index) => (
                                     <Button
                                         key={index}
                                         component="a"
                                         href={link.href}
-                                        target={link.text === 'Download My CV' ? '_self' : '_blank'}
+                                        target="_blank"
                                         rel="noopener noreferrer"
-                                        variant={link.text === 'Email Me' ? 'filled' : link.text === 'LinkedIn' ? 'outline' : 'filled'}
-                                        color={link.text === 'Email Me' ? 'blue' : link.text === 'LinkedIn' ? 'blue' : 'green'}
+                                        variant={link.text.includes('Email') ? 'filled' : 'outline'}
+                                        color="mocha-mousse"
                                     >
                                         <Flex justify="center" align="center" gap="xs" wrap="nowrap">
                                             {React.createElement(iconMap[link.icon])}
@@ -309,9 +314,9 @@ const Portfolio = () => {
             </Box>
 
             {/* Footer */}
-            <Box sx={{ background: theme.colors.dark[8] }} py="xl">
+            <Box sx={{ background: mantineTheme.colors['mocha-mousse'][9] }} py="xl">
                 <Container size="xl" ta="center">
-                    <Text c="dimmed">&copy; 2025 {personalInfo.name}. Built with React and Mantine.</Text>
+                    <Text c="white">&copy; 2025 {personalInfo.name}. Built with React and Mantine.</Text>
                 </Container>
             </Box>
         </Box>

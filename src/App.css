@@ -1,5 +1,3 @@
-/* src/App.css */
-
 .App {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,11 +9,14 @@
   box-sizing: border-box;
 }
 
+/* You can keep these, or let Mantine's global styles handle them */
 body {
   background-color: #f0f2f5;
   color: #333;
 }
 
+/* REMOVE ALL OF THESE. Mantine's 'sx' prop will now handle them. */
+/*
 .header {
   background-color: #fff;
   padding: 1rem 2rem;
@@ -102,3 +103,4 @@ button:hover {
   color: #fff;
   margin-top: 2rem;
 }
+*/
