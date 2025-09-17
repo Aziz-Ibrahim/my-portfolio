@@ -230,18 +230,26 @@ const Portfolio = () => {
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
                     <Carousel
                         withIndicators
+                        withControls
                         height={400}
                         slideSize={{ base: '100%', sm: '50%', md: '33.333%' }}
                         slideGap="xl"
-                        align="start"
                         loop
+                        styles={{
+                            controls: {
+                                top: '90%' // Adjust the vertical position of the arrows
+                            },
+                            indicator: {
+                                bottom: 'unset' // Move indicators
+                            }
+                        }}
                     >
                         {projects.map((project) => (
                             <Carousel.Slide key={project.id}>
-                                <Paper p="md" shadow="md" radius="md" withBorder>
-                                    <Stack spacing="sm">
+                                <Paper p="md" shadow="md" radius="md" withBorder h="100%">
+                                    <Stack spacing="sm" h="100%">
                                         <Title order={4} fw={700} c="dark">{project.title}</Title>
-                                        <Text c="dimmed" fz="sm">{project.description}</Text>
+                                        <Text c="dimmed" fz="sm" sx={{ flexGrow: 1 }}>{project.description}</Text>
                                         <Group spacing="xs">
                                             {project.technologies.map((tech) => (
                                                 <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
