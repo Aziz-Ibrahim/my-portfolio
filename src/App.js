@@ -287,14 +287,9 @@ const Portfolio = () => {
 
             {/* Contact Section */}
             <Box id="contact" py={80} sx={{ background: mantineTheme.colors['cream-accent'][1] }}>
-                <Container size="xl">
-                    <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Get In Touch</Title>
+                <Container size="lg">
                     <Grid>
-                        <Grid.Col span={{ base: 12, md: 6 }}>
-                            <Paper shadow="md" p="xl" radius="md">
-                                <ContactForm />
-                            </Paper>
-                        </Grid.Col>
+                        {/* Contact Info Column */}
                         <Grid.Col span={{ base: 12, md: 6 }}>
                             <Title order={3} fw={600} c="dark" mb="md">Let's Connect</Title>
                             <Text fz="lg" c="dimmed" mb="xl" sx={{ lineHeight: 1.6 }}>{contactInfo.intro}</Text>
@@ -316,6 +311,11 @@ const Portfolio = () => {
                                     </Button>
                                 ))}
                             </Stack>
+                        </Grid.Col>
+
+                        {/* Contact Form Column */}
+                        <Grid.Col span={{ base: 12, md: 6 }}>
+                            <ContactForm />
                         </Grid.Col>
                     </Grid>
                 </Container>
