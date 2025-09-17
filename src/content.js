@@ -7,21 +7,21 @@ export const personalInfo = {
   email: "aziz.ibrahim8@icloud.com",
   github: "https://github.com/aziz-ibrahim",
   linkedin: "https://linkedin.com/in/aziz-ibrahim8",
-  cvFileName: "Aziz-Ibrahim-Abdulaziz-Fullstack-dev.pdf"
+  cvFileName: "my-cv.pdf"
 };
 
 // Sections Data
 export const heroContent = {
-  icon: "Code", // Changed from <Code ... />
+  icon: "Code",
   cta: {
     text: "View My Work",
-    icon: "ChevronDown", // Changed from <ChevronDown ... />
+    icon: "ChevronDown",
     link: 'projects'
   },
   socialLinks: [
-    { href: personalInfo.github, icon: "Github" }, // Changed from <GithubIcon ... />
-    { href: personalInfo.linkedin, icon: "Linkedin" }, // Changed from <Linkedin ... />
-    { href: `mailto:${personalInfo.email}`, icon: "Mail" } // Changed from <Mail ... />
+    { href: personalInfo.github, icon: "Github" },
+    { href: personalInfo.linkedin, icon: "Linkedin" },
+    { href: `mailto:${personalInfo.email}`, icon: "Mail" }
   ]
 };
 
@@ -33,17 +33,17 @@ export const aboutContent = {
   skills: {
     backend: {
       title: "Backend Expertise",
-      icon: "Server", // Changed from <Server ... />
+      icon: "Server",
       list: ["Python", "Django", "Django REST", "PostgreSQL", "Redis", "Celery"]
     },
     frontend: {
       title: "Frontend Skills",
-      icon: "Globe", // Changed from <Globe ... />
+      icon: "Globe",
       list: ["React", "JavaScript", "HTML5", "CSS3", "Bootstrap", "jQuery"]
     },
     learning: {
       title: "Currently Learning",
-      icon: "Code", // Changed from <Code ... />
+      icon: "Code",
       list: ["Node.js", "Express.js", "MongoDB", "TypeScript"]
     }
   }
@@ -98,10 +98,10 @@ export const projects = [
 ];
 
 export const contactInfo = {
-  intro: "I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to connect, feel free to reach out!",
-  links: [
-    { text: "Email Me", href: `mailto:${personalInfo.email}`, icon: "Mail", className: "bg-blue-600 text-white hover:bg-blue-700" },
-    { text: "LinkedIn", href: personalInfo.linkedin, icon: "Linkedin", className: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50" },
-    { text: "Download My CV", href: `${process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000'}/downloads/${personalInfo.cvFileName}`, icon: "Download", className: "bg-green-600 text-white hover:bg-green-700" }
-  ]
+    intro: "I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to connect, feel free to reach out!",
+    links: [
+        { text: "Email Me", href: `mailto:${personalInfo.email}`, icon: "Mail" },
+        { text: "LinkedIn", href: personalInfo.linkedin, icon: "Linkedin" },
+        { text: "Download My CV", href: "/my-cv.pdf", icon: "Download" },
+    ]
 };

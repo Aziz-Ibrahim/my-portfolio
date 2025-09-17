@@ -1,24 +1,24 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import {
-  Github, ExternalLink, Mail, Linkedin, ChevronDown, Menu, X, Download, Code, Server, Globe, Send
+    Github, ExternalLink, Mail, Linkedin, ChevronDown, Menu, X, Download, Code, Server, Globe, Send
 } from 'lucide-react';
 import {
-  Container,
-  Box,
-  Flex,
-  Title,
-  Button,
-  Group,
-  Stack,
-  Text,
-  Anchor,
-  Paper,
-  Badge,
-  Grid,
-  SimpleGrid,
-  useMantineTheme,
-  Burger
+    Container,
+    Box,
+    Flex,
+    Title,
+    Button,
+    Group,
+    Stack,
+    Text,
+    Grid,
+    Anchor,
+    Paper,
+    Badge,
+    SimpleGrid,
+    useMantineTheme,
+    Burger
 } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
@@ -28,18 +28,18 @@ import SocialLink from './SocialLink'; // <--- Import the new component here
 
 // A mapping object for Lucide icons to be used with Mantine components
 const iconMap = {
-  Code: Code,
-  Github: Github,
-  Linkedin: Linkedin,
-  Mail: Mail,
-  ChevronDown: ChevronDown,
-  ExternalLink: ExternalLink,
-  Server: Server,
-  Globe: Globe,
-  Download: Download,
-  Menu: Menu,
-  X: X,
-  Send: Send
+    Code: Code,
+    Github: Github,
+    Linkedin: Linkedin,
+    Mail: Mail,
+    ChevronDown: ChevronDown,
+    ExternalLink: ExternalLink,
+    Server: Server,
+    Globe: Globe,
+    Download: Download,
+    Menu: Menu,
+    X: X,
+    Send: Send
 };
 
 const Portfolio = () => {
@@ -58,7 +58,7 @@ const Portfolio = () => {
                 if (element) {
                     const offsetTop = element.offsetTop;
                     const height = element.offsetHeight;
-                    
+
                     if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
                         setActiveSection(section);
                     }
@@ -96,7 +96,7 @@ const Portfolio = () => {
                 <Container size="xl" py="md">
                     <Flex justify="space-between" align="center">
                         <Title order={4}>Aziz Ibrahim's Portfolio</Title>
-                        
+
                         {/* Conditionally render desktop navigation */}
                         {isDesktop ? (
                             <Group spacing="xl">
@@ -275,19 +275,24 @@ const Portfolio = () => {
             <Box id="contact" py={80} sx={{ background: theme.white }}>
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" mb="xl">Get In Touch</Title>
-                    <Grid gutter="xl">
-                        <Grid.Col sm={12} md={6}>
+
+                    <Grid>
+                        <Grid.Col span={{ base: 12, md: 6 }}>
+                            <ContactForm />
+                        </Grid.Col>
+
+                        <Grid.Col span={{ base: 12, md: 6 }}>
                             <Title order={3} fw={600} c="dark" mb="md">Let's Connect</Title>
                             <Text fz="lg" c="dimmed" mb="xl" sx={{ lineHeight: 1.6 }}>{contactInfo.intro}</Text>
+
                             <Stack spacing="md">
                                 {contactInfo.links.map((link, index) => (
                                     <Button
                                         key={index}
                                         component="a"
-                                        href={link.href === '/my-cv.pdf' ? '/my-cv.pdf' : link.href}
+                                        href={link.href}
                                         target={link.text === 'Download My CV' ? '_self' : '_blank'}
                                         rel="noopener noreferrer"
-                                        fullWidth
                                         variant={link.text === 'Email Me' ? 'filled' : link.text === 'LinkedIn' ? 'outline' : 'filled'}
                                         color={link.text === 'Email Me' ? 'blue' : link.text === 'LinkedIn' ? 'blue' : 'green'}
                                     >
@@ -298,9 +303,6 @@ const Portfolio = () => {
                                     </Button>
                                 ))}
                             </Stack>
-                        </Grid.Col>
-                        <Grid.Col sm={12} md={6}>
-                            <ContactForm />
                         </Grid.Col>
                     </Grid>
                 </Container>
