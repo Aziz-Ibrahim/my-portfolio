@@ -49,7 +49,7 @@ const iconMap = {
 const Portfolio = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
-    const mantineTheme = useMantineTheme(); // Renamed to avoid conflict
+    const mantineTheme = useMantineTheme();
     const isDesktop = useMediaQuery(`(min-width: ${mantineTheme.breakpoints.sm})`);
 
     useEffect(() => {
@@ -237,10 +237,10 @@ const Portfolio = () => {
                         loop
                         styles={{
                             controls: {
-                                top: '90%' // Adjust the vertical position of the arrows
+                                top: '90%'
                             },
                             indicator: {
-                                bottom: 'unset' // Move indicators
+                                bottom: 'unset'
                             }
                         }}
                     >
@@ -310,6 +310,18 @@ const Portfolio = () => {
                                         </Flex>
                                     </Button>
                                 ))}
+                                <Button
+                                    component="a"
+                                    href={`/${personalInfo.cvFileName}`}
+                                    download
+                                    variant="filled"
+                                    color="mocha-mousse"
+                                >
+                                    <Flex justify="center" align="center" gap="xs" wrap="nowrap">
+                                        {React.createElement(iconMap['Download'])}
+                                        <Text>Download My CV</Text>
+                                    </Flex>
+                                </Button>
                             </Stack>
                         </Grid.Col>
 

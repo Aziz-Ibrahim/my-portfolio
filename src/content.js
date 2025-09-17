@@ -102,6 +102,5 @@ export const contactInfo = {
     links: [
         { text: "Email Me", href: `mailto:${personalInfo.email}`, icon: "Mail" },
         { text: "LinkedIn", href: personalInfo.linkedin, icon: "Linkedin" },
-        { text: "Download My CV", href: "/my-cv.pdf", icon: "Download" },
     ]
 };

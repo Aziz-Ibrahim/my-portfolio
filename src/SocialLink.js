@@ -1,17 +1,15 @@
-// src/SocialLink.js
-import React, { useState } from 'react'; // Import useState
+import React, { useState } from 'react';
 import { Anchor, Box, useMantineTheme } from '@mantine/core';
 
 const SocialLink = ({ link, iconMap }) => {
   const theme = useMantineTheme();
-  const [isHovered, setIsHovered] = useState(false); // New state to track hover
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Anchor
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      // Add event handlers
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
