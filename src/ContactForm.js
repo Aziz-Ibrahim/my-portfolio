@@ -33,11 +33,18 @@ const ContactForm = () => {
     const sendEmail = async (values) => {
         setIsSubmitting(true);
 
+        const templateParams = {
+            name: values.user_name,
+            email: values.user_email,
+            message: values.message,
+            title: "New message from your portfolio", 
+        };
+
         try {
             await emailjs.send(
                 'service_beg1b9f',
                 'template_qldaki8',
-                values,
+                templateParams,
                 'Yy3Vwy5Kwvgyi2Hvf'
             );
 

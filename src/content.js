@@ -25,6 +25,7 @@ export const heroContent = {
   ]
 };
 
+// About Section
 export const aboutContent = {
   aboutText: [
     "I'm a passionate full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I enjoy building projects that solve real problems—whether it's e-commerce platforms like InfoCrumbs and Boutique Ado, or experimenting with AI tools such as a story generator built using OpenAI's API and LangChain.",
@@ -49,6 +50,7 @@ export const aboutContent = {
   }
 };
 
+// Projects Section
 export const projects = [
   {
     id: 1,
@@ -97,6 +99,7 @@ export const projects = [
   },
 ];
 
+// Contact Section
 export const contactInfo = {
     intro: "I'm always interested in new opportunities and collaborations. Whether you have a project in mind or just want to connect, feel free to reach out!",
     links: [
