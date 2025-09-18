@@ -3,7 +3,8 @@ import {
     Github, ExternalLink,
     Mail, Linkedin, ChevronDown,
     Menu, X, Download, Code,
-    Server, Globe, Send, Database
+    Server, Globe, Send, Database,
+    ChevronLeft, ChevronRight
 } from 'lucide-react';
 import {
     Container,
@@ -19,7 +20,7 @@ import {
     Paper,
     Badge,
     useMantineTheme,
-    Burger
+    Burger,
 } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
@@ -31,11 +32,11 @@ import {
 import ContactForm from './ContactForm';
 import SocialLink from './SocialLink';
 
-// Icon map (unchanged)
+// Icon map
 const iconMap = {
     Code, Github, Linkedin, Mail, ChevronDown,
     ExternalLink, Server, Globe, Download,
-    Menu, X, Send, Database
+    Menu, X, Send, Database, ChevronLeft, ChevronRight
 };
 
 // Animations
@@ -252,42 +253,33 @@ const Portfolio = () => {
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
                     <Carousel
                         withIndicators
-                        withControls={true}
-                        height={400}
-                        slideSize={{ base: '100%', sm: '50%', lg: '33.333%' }}
-                        slideGap="l"
-                        loop={false}
+                        slideSize={{ base: '100%', sm: '50%', md: '33.333%' }}
+                        slideGap="xl"
                         align="start"
-                        breakpoints={[
-                            { maxWidth: 'sm', slideSize: '100%' },
-                            { maxWidth: 'md', slideSize: '50%' },
-                            { maxWidth: 'lg', slideSize: '33.333%' }
-                        ]}
-                        styles={{ controls: { top: '70%' } }}
+                        emblaOptions={{ loop: true }}
+                        styles={{ controls: { top: '100%' } }}
                     >
                         {projects.map((project) => (
                             <Carousel.Slide key={project.id}>
-                                <motion.div whileHover={{ scale: 1.03 }}>
-                                    <Paper p="md" shadow="lg" radius="lg" withBorder h="100%" sx={{ transition: 'all 0.3s ease' }}>
-                                        <Stack spacing="sm" h="100%">
-                                            <Title order={4} fw={700} c="dark">{project.title}</Title>
-                                            <Text c="dimmed" fz="sm" sx={{ flexGrow: 1 }}>{project.description}</Text>
-                                            <Group spacing="xs">
-                                                {project.technologies.map((tech) => (
-                                                    <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
-                                                ))}
-                                            </Group>
-                                            <Group spacing="sm">
-                                                <Anchor href={project.liveUrl} target="_blank" rel="noopener noreferrer" c="mocha-mousse" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <ExternalLink size={16} /><Text ml="xs">Live Demo</Text>
-                                                </Anchor>
-                                                <Anchor href={project.githubUrl} target="_blank" rel="noopener noreferrer" c="dimmed" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <Github size={16} /><Text ml="xs">Code</Text>
-                                                </Anchor>
-                                            </Group>
-                                        </Stack>
-                                    </Paper>
-                                </motion.div>
+                                <Paper p="md" shadow="lg" radius="lg" withBorder h="100%" sx={{ transition: 'all 0.3s ease' }}>
+                                    <Stack spacing="sm" h="100%">
+                                        <Title order={4} fw={700} c="dark">{project.title}</Title>
+                                        <Text c="dimmed" fz="sm" sx={{ flexGrow: 1 }}>{project.description}</Text>
+                                        <Group spacing="xs">
+                                            {project.technologies.map((tech) => (
+                                                <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
+                                            ))}
+                                        </Group>
+                                        <Group spacing="sm">
+                                            <Anchor href={project.liveUrl} target="_blank" rel="noopener noreferrer" c="mocha-mousse" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                <ExternalLink size={16} /><Text ml="xs">Live Demo</Text>
+                                            </Anchor>
+                                            <Anchor href={project.githubUrl} target="_blank" rel="noopener noreferrer" c="dimmed" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                <Github size={16} /><Text ml="xs">Code</Text>
+                                            </Anchor>
+                                        </Group>
+                                    </Stack>
+                                </Paper>
                             </Carousel.Slide>
                         ))}
                     </Carousel>
