@@ -28,27 +28,43 @@ export const heroContent = {
 // About Section
 export const aboutContent = {
   aboutText: [
-    "I'm a passionate full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I enjoy building projects that solve real problems—whether it's e-commerce platforms like InfoCrumbs and Boutique Ado, or experimenting with AI tools such as a story generator built using OpenAI's API and LangChain.",
-    "I love creating solutions that solve real-world problems and have a keen eye for both functionality and user experience. My background in Django has given me a solid foundation in web development principles that I'm now applying to learn React and Node.js."
+    "I'm a motivated full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I enjoy building projects that tackle real-world problems — from e-commerce platforms like InfoCrumbs and Boutique Ado, to experimenting with AI tools such as a story generator built using OpenAI's API and LangChain.",
+    "Along the way, I’ve gained experience with modern development practices such as testing, clean code standards, and cloud deployment. I’m always eager to expand my skillset, and I take pride in learning new technologies quickly while applying them in practical, project-based settings."
   ],
   skills: {
     backend: {
       title: "Backend Expertise",
       icon: "Server",
-      list: ["Python", "Django", "Django REST", "PostgreSQL", "Redis", "Celery"]
+      list: [
+        "Python", "Django", "Django REST", "FastAPI", 
+        "PostgreSQL", "Redis", "Celery"
+      ]
     },
     frontend: {
       title: "Frontend Skills",
       icon: "Globe",
-      list: ["React", "JavaScript", "HTML5", "CSS3", "Bootstrap", "jQuery"]
+      list: [
+        "React", "JavaScript", "Bootstrap", "HTML5", "CSS3", "jQuery"
+      ]
     },
     learning: {
-      title: "Currently Learning",
+      title: "Currently Exploring",
       icon: "Code",
-      list: ["Node.js", "Express.js", "MongoDB", "TypeScript"]
+      list: [
+        "Node.js", "Express.js", "MongoDB", "TypeScript", "LangChain"
+      ]
+    },
+    tools: {
+      title: "Tools & Practices",
+      icon: "Database",
+      list: [
+        "Git", "AWS", "Stripe", "Jest", "Unit Testing", 
+        "Pandas", "JSLint", "PEP8"
+      ]
     }
   }
 };
+
 
 // Projects Section
 export const projects = [

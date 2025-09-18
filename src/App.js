@@ -3,7 +3,7 @@ import {
     Github, ExternalLink,
     Mail, Linkedin, ChevronDown,
     Menu, X, Download, Code,
-    Server, Globe, Send
+    Server, Globe, Send, Database
 } from 'lucide-react';
 import {
     Container,
@@ -23,6 +23,7 @@ import {
 } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
+import { motion } from 'framer-motion';
 
 import {
     personalInfo, heroContent, aboutContent, projects, contactInfo
@@ -30,22 +31,24 @@ import {
 import ContactForm from './ContactForm';
 import SocialLink from './SocialLink';
 
-// A mapping object for Lucide icons to be used with Mantine components
+// Icon map (unchanged)
 const iconMap = {
-    Code: Code,
-    Github: Github,
-    Linkedin: Linkedin,
-    Mail: Mail,
-    ChevronDown: ChevronDown,
-    ExternalLink: ExternalLink,
-    Server: Server,
-    Globe: Globe,
-    Download: Download,
-    Menu: Menu,
-    X: X,
-    Send: Send
+    Code, Github, Linkedin, Mail, ChevronDown,
+    ExternalLink, Server, Globe, Download,
+    Menu, X, Send, Database
 };
 
+// Animations
+const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i = 0) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: i * 0.15, duration: 0.6, ease: 'easeOut' }
+    })
+};
+
+// Main Portfolio Component
 const Portfolio = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
@@ -62,46 +65,42 @@ const Portfolio = () => {
                 if (element) {
                     const offsetTop = element.offsetTop;
                     const height = element.offsetHeight;
-
                     if (scrollPosition >= offsetTop && scrollPosition < offsetTop + height) {
                         setActiveSection(section);
                     }
                 }
             });
         };
-
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const scrollToSection = (sectionId) => {
-        document.getElementById(sectionId).scrollIntoView({
-            behavior: 'smooth'
-        });
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
         setIsMenuOpen(false);
     };
 
     return (
         <Box>
             {/* Navigation */}
-            <Paper
-                shadow="sm"
-                radius={0}
-                withBorder={false}
-                bg="mocha-mousse.7"
-                sx={{
+            <motion.nav
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 100 }}
+                style={{
                     position: 'fixed',
                     top: 0,
                     left: 0,
                     right: 0,
-                    zIndex: 100,
+                    zIndex: 1000,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    backgroundColor: 'rgba(52, 43, 33, 0.9)',
                 }}
             >
                 <Container size="xl" py="md">
                     <Flex justify="space-between" align="center">
                         <Title order={4} c="white">Aziz Ibrahim's Portfolio</Title>
 
-                        {/* Conditionally render desktop navigation */}
                         {isDesktop ? (
                             <Group spacing="xl">
                                 {['Home', 'About', 'Projects', 'Contact'].map((item) => (
@@ -109,6 +108,10 @@ const Portfolio = () => {
                                         key={item}
                                         variant="subtle"
                                         onClick={() => scrollToSection(item.toLowerCase())}
+                                        sx={{
+                                            transition: 'all 0.3s ease',
+                                            transform: activeSection === item.toLowerCase() ? 'scale(1.05)' : 'scale(1)',
+                                        }}
                                         color={activeSection === item.toLowerCase() ? 'cream-accent' : 'gray.4'}
                                     >
                                         {item}
@@ -116,7 +119,6 @@ const Portfolio = () => {
                                 ))}
                             </Group>
                         ) : (
-                            // Conditionally render mobile menu button
                             <Burger
                                 opened={isMenuOpen}
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -151,72 +153,87 @@ const Portfolio = () => {
                         </Stack>
                     </Box>
                 )}
-            </Paper>
+            </motion.nav>
 
             {/* Hero Section */}
-            <Box id="home" pt={120} pb={80} sx={{ background: mantineTheme.colors['mocha-mousse'][0] }}>
+            <Box id="home" pt={160} pb={80}
+                sx={{
+                    background: mantineTheme.colors['mocha-mousse'][0],
+                    boxShadow: 'inset 0 -6px 12px rgba(0,0,0,0.08)'
+                }}
+            >
                 <Container size="xl" ta="center">
-                    <Box sx={{
-                        width: 128,
-                        height: 128,
-                        margin: 'auto',
-                        marginBottom: mantineTheme.spacing.xl,
-                        background: `linear-gradient(45deg, ${mantineTheme.colors['mocha-mousse'][6]}, ${mantineTheme.colors['mocha-mousse'][9]})`,
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: mantineTheme.shadows.xl
-                    }}>
-                        {React.createElement(iconMap[heroContent.icon], { size: 64, color: 'white' })}
-                    </Box>
-                    <Title order={1} size="h1" fw={700} c="dark" mb="xs">{personalInfo.name}</Title>
-                    <Title order={2} size="h3" fw={500} c="dimmed" mb="md">{personalInfo.title}</Title>
-                    <Text fz="lg" c="dimmed" maw={600} mx="auto" mb="xl">{personalInfo.tagline}</Text>
-                    <Flex gap="xl" justify="center" align="center" mb="xl">
-                        {heroContent.socialLinks.map((link, index) => (
-                            <SocialLink key={index} link={link} iconMap={iconMap} color="mocha-mousse" />
-                        ))}
-                    </Flex>
-                    <Button
-                        onClick={() => scrollToSection(heroContent.cta.link)}
-                        size="lg"
-                        color="mocha-mousse"
-                    >
-                        <Group spacing="xs">
-                            <Text>{heroContent.cta.text}</Text>
-                            {React.createElement(iconMap[heroContent.cta.icon])}
-                        </Group>
-                    </Button>
+                    <motion.div initial="hidden" whileInView="visible" variants={fadeInUp}>
+                        <Box sx={{
+                            width: 128, height: 128, margin: 'auto',
+                            marginBottom: mantineTheme.spacing.xl,
+                            background: `linear-gradient(45deg, ${mantineTheme.colors['mocha-mousse'][6]}, ${mantineTheme.colors['mocha-mousse'][9]})`,
+                            borderRadius: '50%', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center',
+                            boxShadow: mantineTheme.shadows.xl,
+                            transition: 'transform 0.3s ease',
+                            '&:hover': { transform: 'scale(1.05)' }
+                        }}>
+                            {React.createElement(iconMap[heroContent.icon], { size: 64, color: 'white' })}
+                        </Box>
+                        <Title order={1} size="h1" fw={700} c="dark" mb="xs">{personalInfo.name}</Title>
+                        <Title order={2} size="h3" fw={500} c="dimmed" mb="md">{personalInfo.title}</Title>
+                        <Text fz="lg" c="dimmed" maw={600} mx="auto" mb="xl">{personalInfo.tagline}</Text>
+                        <Flex gap="xl" justify="center" align="center" mb="xl">
+                            {heroContent.socialLinks.map((link, index) => (
+                                <SocialLink key={index} link={link} iconMap={iconMap} color="mocha-mousse" />
+                            ))}
+                        </Flex>
+                        <Button
+                            onClick={() => scrollToSection(heroContent.cta.link)}
+                            size="lg"
+                            color="mocha-mousse"
+                            sx={{ transition: 'transform 0.2s ease', '&:hover': { transform: 'scale(1.05)' } }}
+                        >
+                            <Group spacing="xs">
+                                <Text>{heroContent.cta.text}</Text>
+                                {React.createElement(iconMap[heroContent.cta.icon])}
+                            </Group>
+                        </Button>
+                    </motion.div>
                 </Container>
             </Box>
 
             {/* About Section */}
-            <Box id="about" py={80} sx={{ background: mantineTheme.colors['cream-accent'][0] }}>
+            <Box id="about" py={80}
+                sx={{
+                    background: mantineTheme.colors['cream-accent'][0],
+                    boxShadow: '0 -6px 12px rgba(0,0,0,0.05), inset 0 6px 12px rgba(0,0,0,0.05)'
+                }}
+            >
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">About Me</Title>
                     <Grid>
                         <Grid.Col sm={12} md={6}>
-                            <Box>
+                            <Stack spacing="md">
                                 {aboutContent.aboutText.map((paragraph, index) => (
-                                    <Text key={index} fz="lg" c="dimmed" mb="md" sx={{ lineHeight: 1.6 }}>{paragraph}</Text>
+                                    <motion.div key={index} custom={index} variants={fadeInUp} initial="hidden" whileInView="visible">
+                                        <Text fz="lg" c="dimmed" sx={{ lineHeight: 1.6 }}>{paragraph}</Text>
+                                    </motion.div>
                                 ))}
-                            </Box>
+                            </Stack>
                         </Grid.Col>
                         <Grid.Col sm={12} md={6}>
                             <Stack spacing="xl">
                                 {Object.values(aboutContent.skills).map((skillSet, index) => (
-                                    <Box key={index}>
+                                    <motion.div key={index} variants={fadeInUp} initial="hidden" whileInView="visible">
                                         <Title order={4} fw={600} c="dark" mb="sm" sx={{ display: 'flex', alignItems: 'center' }}>
                                             {React.createElement(iconMap[skillSet.icon], { size: 20 })}
                                             <Box component="span" ml="xs">{skillSet.title}</Box>
                                         </Title>
                                         <Group spacing="xs">
                                             {skillSet.list.map((skill) => (
-                                                <Badge key={skill} size="md" radius="xl" color="mocha-mousse" variant="light">{skill}</Badge>
+                                                <motion.div key={skill} whileHover={{ scale: 1.1 }}>
+                                                    <Badge size="md" radius="xl" color="mocha-mousse" variant="light">{skill}</Badge>
+                                                </motion.div>
                                             ))}
                                         </Group>
-                                    </Box>
+                                    </motion.div>
                                 ))}
                             </Stack>
                         </Grid.Col>
@@ -225,60 +242,52 @@ const Portfolio = () => {
             </Box>
 
             {/* Projects Section */}
-            <Box id="projects" py={80} sx={{ background: mantineTheme.colors['mocha-mousse'][1] }}>
+            <Box id="projects" py={80}
+                sx={{
+                    background: mantineTheme.colors['mocha-mousse'][1],
+                    boxShadow: 'inset 0 -6px 12px rgba(0,0,0,0.06)'
+                }}
+            >
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
                     <Carousel
                         withIndicators
-                        withControls
+                        withControls={true}
                         height={400}
-                        slideSize={{ base: '100%', sm: '50%', md: '33.333%' }}
-                        slideGap="xl"
-                        loop
-                        styles={{
-                            controls: {
-                                top: '90%'
-                            },
-                            indicator: {
-                                bottom: 'unset'
-                            }
-                        }}
+                        slideSize={{ base: '100%', sm: '50%', lg: '33.333%' }}
+                        slideGap="l"
+                        loop={false}
+                        align="start"
+                        breakpoints={[
+                            { maxWidth: 'sm', slideSize: '100%' },
+                            { maxWidth: 'md', slideSize: '50%' },
+                            { maxWidth: 'lg', slideSize: '33.333%' }
+                        ]}
+                        styles={{ controls: { top: '70%' } }}
                     >
                         {projects.map((project) => (
                             <Carousel.Slide key={project.id}>
-                                <Paper p="md" shadow="md" radius="md" withBorder h="100%">
-                                    <Stack spacing="sm" h="100%">
-                                        <Title order={4} fw={700} c="dark">{project.title}</Title>
-                                        <Text c="dimmed" fz="sm" sx={{ flexGrow: 1 }}>{project.description}</Text>
-                                        <Group spacing="xs">
-                                            {project.technologies.map((tech) => (
-                                                <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
-                                            ))}
-                                        </Group>
-                                        <Group spacing="sm">
-                                            <Anchor
-                                                href={project.liveUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                c="mocha-mousse"
-                                                sx={{ display: 'flex', alignItems: 'center' }}
-                                            >
-                                                <ExternalLink size={16} />
-                                                <Text ml="xs">Live Demo</Text>
-                                            </Anchor>
-                                            <Anchor
-                                                href={project.githubUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                c="dimmed"
-                                                sx={{ display: 'flex', alignItems: 'center' }}
-                                            >
-                                                <Github size={16} />
-                                                <Text ml="xs">Code</Text>
-                                            </Anchor>
-                                        </Group>
-                                    </Stack>
-                                </Paper>
+                                <motion.div whileHover={{ scale: 1.03 }}>
+                                    <Paper p="md" shadow="lg" radius="lg" withBorder h="100%" sx={{ transition: 'all 0.3s ease' }}>
+                                        <Stack spacing="sm" h="100%">
+                                            <Title order={4} fw={700} c="dark">{project.title}</Title>
+                                            <Text c="dimmed" fz="sm" sx={{ flexGrow: 1 }}>{project.description}</Text>
+                                            <Group spacing="xs">
+                                                {project.technologies.map((tech) => (
+                                                    <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
+                                                ))}
+                                            </Group>
+                                            <Group spacing="sm">
+                                                <Anchor href={project.liveUrl} target="_blank" rel="noopener noreferrer" c="mocha-mousse" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                    <ExternalLink size={16} /><Text ml="xs">Live Demo</Text>
+                                                </Anchor>
+                                                <Anchor href={project.githubUrl} target="_blank" rel="noopener noreferrer" c="dimmed" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                    <Github size={16} /><Text ml="xs">Code</Text>
+                                                </Anchor>
+                                            </Group>
+                                        </Stack>
+                                    </Paper>
+                                </motion.div>
                             </Carousel.Slide>
                         ))}
                     </Carousel>
@@ -286,46 +295,51 @@ const Portfolio = () => {
             </Box>
 
             {/* Contact Section */}
-            <Box id="contact" py={80} sx={{ background: mantineTheme.colors['cream-accent'][1] }}>
+            <Box id="contact" py={80}
+                sx={{
+                    background: mantineTheme.colors['cream-accent'][1],
+                    boxShadow: '0 -6px 12px rgba(0,0,0,0.08)'
+                }}
+            >
                 <Container size="lg">
                     <Grid>
-                        {/* Contact Info Column */}
                         <Grid.Col span={{ base: 12, md: 6 }}>
-                            <Title order={3} fw={600} c="dark" mb="md">Let's Connect</Title>
-                            <Text fz="lg" c="dimmed" mb="xl" sx={{ lineHeight: 1.6 }}>{contactInfo.intro}</Text>
-                            <Stack spacing="md">
-                                {contactInfo.links.map((link, index) => (
+                            <motion.div variants={fadeInUp} initial="hidden" whileInView="visible">
+                                <Title order={3} fw={600} c="dark" mb="md">Let's Connect</Title>
+                                <Text fz="lg" c="dimmed" mb="xl" sx={{ lineHeight: 1.6 }}>{contactInfo.intro}</Text>
+                                <Stack spacing="md">
+                                    {contactInfo.links.map((link, index) => (
+                                        <Button
+                                            key={index}
+                                            component="a"
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            variant={link.text.includes('Email') ? 'filled' : 'outline'}
+                                            color="mocha-mousse"
+                                            sx={{ transition: 'transform 0.2s ease', '&:hover': { transform: 'scale(1.05)' } }}
+                                        >
+                                            <Flex justify="center" align="center" gap="xs" wrap="nowrap">
+                                                {React.createElement(iconMap[link.icon])}
+                                                <Text>{link.text}</Text>
+                                            </Flex>
+                                        </Button>
+                                    ))}
                                     <Button
-                                        key={index}
                                         component="a"
-                                        href={link.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        variant={link.text.includes('Email') ? 'filled' : 'outline'}
+                                        href={`/${personalInfo.cvFileName}`}
+                                        download
+                                        variant="filled"
                                         color="mocha-mousse"
                                     >
                                         <Flex justify="center" align="center" gap="xs" wrap="nowrap">
-                                            {React.createElement(iconMap[link.icon])}
-                                            <Text>{link.text}</Text>
+                                            {React.createElement(iconMap['Download'])}
+                                            <Text>Download My CV</Text>
                                         </Flex>
                                     </Button>
-                                ))}
-                                <Button
-                                    component="a"
-                                    href={`/${personalInfo.cvFileName}`}
-                                    download
-                                    variant="filled"
-                                    color="mocha-mousse"
-                                >
-                                    <Flex justify="center" align="center" gap="xs" wrap="nowrap">
-                                        {React.createElement(iconMap['Download'])}
-                                        <Text>Download My CV</Text>
-                                    </Flex>
-                                </Button>
-                            </Stack>
+                                </Stack>
+                            </motion.div>
                         </Grid.Col>
-
-                        {/* Contact Form Column */}
                         <Grid.Col span={{ base: 12, md: 6 }}>
                             <ContactForm />
                         </Grid.Col>
