@@ -7,7 +7,7 @@ export const personalInfo = {
   email: "aziz.ibrahim8@icloud.com",
   github: "https://github.com/aziz-ibrahim",
   linkedin: "https://linkedin.com/in/aziz-ibrahim8",
-  cvFileName: "my-cv.pdf"
+  cvFileName: "downloads/my-cv.pdf"
 };
 
 // Sections Data
