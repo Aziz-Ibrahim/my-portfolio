@@ -28,7 +28,7 @@ export const heroContent = {
 // About Section
 export const aboutContent = {
   aboutText: [
-    "I'm a motivated full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I enjoy building projects that tackle real-world problems — from e-commerce platforms like InfoCrumbs and Boutique Ado, to experimenting with AI tools such as a story generator built using OpenAI's API and LangChain.",
+    "I'm a motivated full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I enjoy building projects that tackle real-world problems — from e-commerce platforms like InfoCrumbs and Boutique Ado, to experimenting with AI tools such as a story generator built using OpenAI's API and LangChain, and TL;DR AI, a Laravel-based project that leverages HuggingFace models to summarize long documents.",
     "Along the way, I’ve gained experience with modern development practices such as testing, clean code standards, and cloud deployment. I’m always eager to expand my skillset, and I take pride in learning new technologies quickly while applying them in practical, project-based settings."
   ],
   skills: {
@@ -37,33 +37,38 @@ export const aboutContent = {
       icon: "Server",
       list: [
         "Python", "Django", "Django REST", "FastAPI", 
-        "PostgreSQL", "Redis", "Celery"
+        "PHP", "Laravel", "PostgreSQL", "MongoDB", 
+        "Redis", "Celery"
       ]
     },
     frontend: {
       title: "Frontend Skills",
       icon: "Globe",
       list: [
-        "React", "JavaScript", "Bootstrap", "HTML5", "CSS3", "jQuery"
+        "React", "JavaScript", "TypeScript", "Vite", 
+        "Mantine", "TailwindCSS", "Bootstrap", 
+        "HTML5", "CSS3", "jQuery"
       ]
     },
     learning: {
       title: "Currently Exploring",
       icon: "Code",
       list: [
-        "Node.js", "Express.js", "MongoDB", "TypeScript", "LangChain"
+        "Supabase", "Next.js", "GraphQL", 
+        "AI/ML APIs", "LangChain", "HuggingFace Transformers"
       ]
     },
     tools: {
       title: "Tools & Practices",
       icon: "Database",
       list: [
-        "Git", "AWS", "Stripe", "Jest", "Unit Testing", 
-        "Pandas", "JSLint", "PEP8"
+        "Git", "AWS", "Stripe", "Brevo (Sendinblue)", 
+        "Jest", "Unit Testing", "Pandas", "JSLint", "PEP8"
       ]
     }
   }
 };
+
 
 
 // Projects Section
@@ -112,6 +117,15 @@ export const projects = [
     liveUrl: "https://aziz-ibrahim.github.io/math4kids/game.html",
     githubUrl: "https://github.com/Aziz-Ibrahim/math4kids",
     featured: false
+  },
+  {
+    id: 6, 
+    title: "TL;DR AI", 
+    description: "A Laravel + Vite web app that helps users quickly digest long documents by generating AI-powered summaries. Upload TXT, DOCX, or PDF files and TL;DR AI will use HuggingFace transformers to create concise summaries. Designed to save time, improve productivity, and it’s completely free to use.", 
+    technologies: ["PHP", "Laravel", "Vite", "HuggingFace AI", "JavaScript", "PDF/Docx Processing"], 
+    liveUrl: "https://tl-dr-ai-26e826225710.herokuapp.com/",
+    githubUrl: "https://github.com/aziz-ibrahim/tldr-ai", 
+    featured: true
   },
 ];
 
