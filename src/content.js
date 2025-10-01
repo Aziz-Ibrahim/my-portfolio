@@ -32,39 +32,40 @@ export const aboutContent = {
     "Along the way, I’ve gained experience with modern development practices such as testing, clean code standards, and cloud deployment. I’m always eager to expand my skillset, and I take pride in learning new technologies quickly while applying them in practical, project-based settings."
   ],
   skills: {
-    backend: {
-      title: "Backend Expertise",
-      icon: "Server",
-      list: [
-        "Python", "Django", "Django REST", "FastAPI", 
-        "PHP", "Laravel", "PostgreSQL", "MongoDB", 
-        "Redis", "Celery"
-      ]
+    languages: {
+      title: "Programming Languages",
+      icon: "Code",
+      list: ["Python", "JavaScript", "TypeScript", "PHP", "HTML5", "CSS3"]
     },
-    frontend: {
-      title: "Frontend Skills",
-      icon: "Globe",
-      list: [
-        "React", "JavaScript", "TypeScript", "Vite", 
-        "Mantine", "TailwindCSS", "Bootstrap", 
-        "HTML5", "CSS3", "jQuery"
-      ]
+    frameworks: {
+      title: "Frameworks & Libraries",
+      icon: "Settings",
+      list: ["Django", "Django REST", "FastAPI", "Laravel", "React", "Next.js", "Vite", "jQuery", "Mantine", "TailwindCSS", "Bootstrap"]
+    },
+    databases: {
+      title: "Databases & Caching",
+      icon: "Database",
+      list: ["PostgreSQL", "MongoDB", "Supabase", "Redis"]
+    },
+    devops: {
+      title: "Cloud & DevOps Tools",
+      icon: "Cloud",
+      list: ["Git", "AWS", "Docker", "Kubernetes", "Vercel", "Heroku", "CI/CD", "Unit Testing", "JSLint", "PEP8"]
+    },
+    ai_ml: {
+      title: "AI & Data (APIs/Libs)",
+      icon: "Brain",
+      list: ["AI/ML APIs", "LangChain", "HuggingFace Transformers", "Pandas"]
+    },
+    tools: {
+      title: "Other Tools & Services",
+      icon: "Server",
+      list: ["Stripe", "Brevo (Sendinblue)", "Jest"]
     },
     learning: {
       title: "Currently Exploring",
-      icon: "Code",
-      list: [
-        "Supabase", "Next.js", "GraphQL", 
-        "AI/ML APIs", "LangChain", "HuggingFace Transformers"
-      ]
-    },
-    tools: {
-      title: "Tools & Practices",
-      icon: "Database",
-      list: [
-        "Git", "AWS", "Stripe", "Brevo (Sendinblue)", 
-        "Jest", "Unit Testing", "Pandas", "JSLint", "PEP8"
-      ]
+      icon: "Rocket",
+      list: ["GraphQL", "WordPress", "Rust"]
     }
   }
 };

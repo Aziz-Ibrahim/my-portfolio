@@ -4,7 +4,8 @@ import {
     Mail, Linkedin, ChevronDown,
     Menu, X, Download, Code,
     Server, Globe, Send, Database,
-    ChevronLeft, ChevronRight
+    ChevronLeft, ChevronRight, Settings,
+    Cloud, Brain, Rocket 
 } from 'lucide-react';
 import {
     Container,
@@ -36,7 +37,8 @@ import SocialLink from './SocialLink';
 const iconMap = {
     Code, Github, Linkedin, Mail, ChevronDown,
     ExternalLink, Server, Globe, Download,
-    Menu, X, Send, Database, ChevronLeft, ChevronRight
+    Menu, X, Send, Database, ChevronLeft, ChevronRight,
+    Settings, Cloud, Brain, Rocket
 };
 
 // Animations
