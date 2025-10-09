@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Github, ExternalLink,
     Mail, Linkedin, ChevronDown,
     Menu, X, Download, Code,
     Server, Globe, Send, Database,
     ChevronLeft, ChevronRight, Settings,
-    Cloud, Brain, Rocket 
+    Cloud, Brain, Rocket, 
+    Calendar
 } from 'lucide-react';
 import {
     Container,
@@ -22,10 +23,13 @@ import {
     Badge,
     useMantineTheme,
     Burger,
+    SimpleGrid,
+    Card,
+    Modal,
+    Image
 } from '@mantine/core';
-import { Carousel } from '@mantine/carousel';
-import { useMediaQuery } from '@mantine/hooks';
-import { motion } from 'framer-motion';
+import { useMediaQuery, useDisclosure } from '@mantine/hooks';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 import {
     personalInfo, heroContent, aboutContent, projects, contactInfo
@@ -38,7 +42,7 @@ const iconMap = {
     Code, Github, Linkedin, Mail, ChevronDown,
     ExternalLink, Server, Globe, Download,
     Menu, X, Send, Database, ChevronLeft, ChevronRight,
-    Settings, Cloud, Brain, Rocket
+    Settings, Cloud, Brain, Rocket, Calendar
 };
 
 // Animations
@@ -49,6 +53,237 @@ const fadeInUp = {
         y: 0,
         transition: { delay: i * 0.15, duration: 0.6, ease: 'easeOut' }
     })
+};
+
+// Magnetic Card Component with dramatic effects
+const MagneticCard = ({ children, delay = 0 }) => {
+    const cardRef = useRef(null);
+    const [isHovered, setIsHovered] = useState(false);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const springConfig = { damping: 12, stiffness: 200 };
+    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), springConfig);
+    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), springConfig);
+    const scale = useSpring(isHovered ? 1.05 : 1, springConfig);
+
+    const handleMouseMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        x.set((e.clientX - centerX) / rect.width);
+        y.set((e.clientY - centerY) / rect.height);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+        setIsHovered(false);
+    };
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    return (
+        <motion.div
+            ref={cardRef}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay, duration: 0.5 }}
+            viewport={{ once: true }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onMouseEnter={handleMouseEnter}
+            style={{
+                rotateX,
+                rotateY,
+                scale,
+                transformStyle: 'preserve-3d',
+            }}
+        >
+            {children}
+        </motion.div>
+    );
+};
+
+// Project Card Component with Image and Modal
+const ProjectCard = ({ project, index }) => {
+    const [opened, { open, close }] = useDisclosure(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                viewport={{ once: true }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={open}
+            >
+                <Paper
+                    radius="lg"
+                    withBorder
+                    sx={(theme) => ({
+                        height: 300,
+                        overflow: 'hidden',
+                        position: 'relative',
+                        cursor: 'pointer',
+                        transition: 'all 0.4s ease',
+                        transform: isHovered ? 'translateY(-8px) scale(1.02)' : 'translateY(0) scale(1)',
+                        boxShadow: isHovered ? theme.shadows.xl : theme.shadows.md,
+                        border: `2px solid ${isHovered ? theme.colors['mocha-mousse'][6] : theme.colors.gray[3]}`,
+                    })}
+                >
+                    {/* Project Image */}
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            width: '100%',
+                            height: '100%',
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <Image
+                            src={project.image || 'https://via.placeholder.com/600x400?text=Project+Image'}
+                            alt={project.title}
+                            fit="cover"
+                            height={300}
+                            sx={{
+                                transition: 'transform 0.4s ease',
+                                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                            }}
+                        />
+                        
+                        {/* Overlay */}
+                        <Box
+                            sx={(theme) => ({
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                background: `linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%)`,
+                                transition: 'all 0.4s ease',
+                                opacity: isHovered ? 1 : 0.7,
+                            })}
+                        />
+
+                        {/* Title and Badge */}
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                padding: 20,
+                                zIndex: 2,
+                            }}
+                        >
+                            <Flex justify="space-between" align="end">
+                                <Title order={3} c="mocha-mousse" fw={700}>
+                                    {project.title}
+                                </Title>
+                                {project.featured && (
+                                    <Badge size="lg" color="mocha-mousse" variant="filled">
+                                        Featured
+                                    </Badge>
+                                )}
+                            </Flex>
+                            <Text c="gray" size="sm" mt="xs" opacity={0.9}>
+                                Click to view details
+                            </Text>
+                        </Box>
+                    </Box>
+                </Paper>
+            </motion.div>
+
+            {/* Modal with Project Details */}
+            <Modal
+                opened={opened}
+                onClose={close}
+                size="lg"
+                title={
+                    <Flex align="center" gap="sm">
+                        <Title order={2} c='mocha-mousse'>{project.title}</Title>
+                        {project.featured && (
+                            <Badge size="lg" color="mocha-mousse" variant="filled">
+                                Featured
+                            </Badge>
+                        )}
+                    </Flex>
+                }
+                padding="xl"
+                radius="lg"
+                zIndex={1000}
+            >
+                <Stack spacing="lg">
+                    {/* Project Image in Modal */}
+                    <Image
+                        src={project.image || 'https://via.placeholder.com/800x400?text=Project+Image'}
+                        alt={project.title}
+                        radius="md"
+                        fit="contain"
+                        height={300}
+                    />
+
+                    {/* Description */}
+                    <Text size="md" c="dimmed" sx={{ lineHeight: 1.7 }}>
+                        {project.description}
+                    </Text>
+
+                    {/* Technologies */}
+                    <Box>
+                        <Title order={5} mb="sm" c="dark">Tech Stack</Title>
+                        <Group spacing="xs">
+                            {project.technologies.map((tech) => (
+                                <Badge 
+                                    key={tech} 
+                                    size="lg" 
+                                    color="mocha-mousse" 
+                                    variant="light"
+                                    sx={{ fontWeight: 500 }}
+                                >
+                                    {tech}
+                                </Badge>
+                            ))}
+                        </Group>
+                    </Box>
+
+                    {/* Action Buttons */}
+                    <Group spacing="md" grow>
+                        <Button
+                            component="a"
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variant="filled"
+                            color="mocha-mousse"
+                            leftIcon={<ExternalLink size={18} />}
+                            size="md"
+                        >
+                            Live Demo
+                        </Button>
+                        <Button
+                            component="a"
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variant="outline"
+                            color="dark"
+                            leftIcon={<Github size={18} />}
+                            size="md"
+                        >
+                            View Code
+                        </Button>
+                    </Group>
+                </Stack>
+            </Modal>
+        </>
+    );
 };
 
 // Main Portfolio Component
@@ -97,7 +332,8 @@ const Portfolio = () => {
                     right: 0,
                     zIndex: 1000,
                     boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                    backgroundColor: 'rgba(52, 43, 33, 0.9)',
+                    backgroundColor: 'rgba(52, 43, 33, 0.95)',
+                    backdropFilter: 'blur(10px)',
                 }}
             >
                 <Container size="xl" py="md">
@@ -202,7 +438,7 @@ const Portfolio = () => {
                 </Container>
             </Box>
 
-            {/* About Section */}
+            {/* About Section with Enhanced Magnetic Cards */}
             <Box id="about" py={80}
                 sx={{
                     background: mantineTheme.colors['cream-accent'][0],
@@ -211,40 +447,101 @@ const Portfolio = () => {
             >
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">About Me</Title>
-                    <Grid>
-                        <Grid.Col sm={12} md={6}>
+                    <Grid gutter="xl">
+                        <Grid.Col sm={12} md={12} lg={5}>
                             <Stack spacing="md">
                                 {aboutContent.aboutText.map((paragraph, index) => (
                                     <motion.div key={index} custom={index} variants={fadeInUp} initial="hidden" whileInView="visible">
-                                        <Text fz="lg" c="dimmed" sx={{ lineHeight: 1.6 }}>{paragraph}</Text>
+                                        <Text fz="lg" c="dimmed" sx={{ lineHeight: 1.8 }}>{paragraph}</Text>
                                     </motion.div>
                                 ))}
                             </Stack>
                         </Grid.Col>
-                        <Grid.Col sm={12} md={6}>
-                            <Stack spacing="xl">
+                        <Grid.Col sm={12} md={12} lg={7}>
+                            <SimpleGrid
+                                cols={2}
+                                spacing="lg"
+                                breakpoints={[
+                                    { maxWidth: 'md', cols: 1 }
+                                ]}
+                            >
                                 {Object.values(aboutContent.skills).map((skillSet, index) => (
-                                    <motion.div key={index} variants={fadeInUp} initial="hidden" whileInView="visible">
-                                        <Title order={4} fw={600} c="dark" mb="sm" sx={{ display: 'flex', alignItems: 'center' }}>
-                                            {React.createElement(iconMap[skillSet.icon], { size: 20 })}
-                                            <Box component="span" ml="xs">{skillSet.title}</Box>
-                                        </Title>
-                                        <Group spacing="xs">
-                                            {skillSet.list.map((skill) => (
-                                                <motion.div key={skill} whileHover={{ scale: 1.1 }}>
-                                                    <Badge size="md" radius="xl" color="mocha-mousse" variant="light">{skill}</Badge>
-                                                </motion.div>
-                                            ))}
-                                        </Group>
-                                    </motion.div>
+                                    <MagneticCard key={index} delay={index * 0.1}>
+                                        <Card
+                                            shadow="xl"
+                                            padding="lg"
+                                            radius="md"
+                                            sx={(theme) => ({
+                                                height: '100%',
+                                                background: `linear-gradient(135deg, ${theme.white} 0%, ${theme.colors['cream-accent'][0]} 100%)`,
+                                                transition: 'all 0.3s ease',
+                                                border: `3px solid ${theme.colors['mocha-mousse'][2]}`,
+                                                boxShadow: '0 8px 32px rgba(100, 77, 69, 0.15)',
+                                                '&:hover': {
+                                                    borderColor: theme.colors['mocha-mousse'][6],
+                                                    boxShadow: `0 20px 60px rgba(100, 77, 69, 0.35), 
+                                                                0 0 0 4px ${theme.colors['mocha-mousse'][1]}`,
+                                                    background: `linear-gradient(135deg, ${theme.white} 0%, ${theme.colors['mocha-mousse'][0]} 100%)`,
+                                                }
+                                            })}
+                                        >
+                                            <Stack spacing="md">
+                                                <Flex align="center" gap="sm">
+                                                    <Box
+                                                        sx={(theme) => ({
+                                                            width: 50,
+                                                            height: 50,
+                                                            borderRadius: '12px',
+                                                            background: `linear-gradient(135deg, ${theme.colors['mocha-mousse'][6]} 0%, ${theme.colors['mocha-mousse'][8]} 100%)`,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            boxShadow: '0 4px 16px rgba(100, 77, 69, 0.3)',
+                                                            transition: 'all 0.3s ease',
+                                                            '&:hover': {
+                                                                transform: 'rotate(10deg) scale(1.1)',
+                                                                boxShadow: '0 8px 24px rgba(100, 77, 69, 0.5)',
+                                                            }
+                                                        })}
+                                                    >
+                                                        {React.createElement(iconMap[skillSet.icon], { size: 24, color: 'white' })}
+                                                    </Box>
+                                                    <Title order={5} fw={700} c="dark">
+                                                        {skillSet.title}
+                                                    </Title>
+                                                </Flex>
+                                                <Group spacing="xs">
+                                                    {skillSet.list.map((skill) => (
+                                                        <Badge 
+                                                            key={skill} 
+                                                            size="md" 
+                                                            radius="md" 
+                                                            color="mocha-mousse" 
+                                                            variant="light"
+                                                            sx={{ 
+                                                                fontWeight: 600,
+                                                                transition: 'all 0.2s ease',
+                                                                '&:hover': {
+                                                                    transform: 'scale(1.1)',
+                                                                    cursor: 'default'
+                                                                }
+                                                            }}
+                                                        >
+                                                            {skill}
+                                                        </Badge>
+                                                    ))}
+                                                </Group>
+                                            </Stack>
+                                        </Card>
+                                    </MagneticCard>
                                 ))}
-                            </Stack>
+                            </SimpleGrid>
                         </Grid.Col>
                     </Grid>
                 </Container>
             </Box>
 
-            {/* Projects Section */}
+            {/* Projects Section - Image Grid with Modals */}
             <Box id="projects" py={80}
                 sx={{
                     background: mantineTheme.colors['mocha-mousse'][1],
@@ -253,38 +550,18 @@ const Portfolio = () => {
             >
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
-                    <Carousel
-                        withIndicators
-                        slideSize={{ base: '100%', sm: '50%', md: '33.333%' }}
-                        slideGap="xl"
-                        align="start"
-                        emblaOptions={{ loop: true }}
-                        styles={{ controls: { top: '100%' } }}
+                    <SimpleGrid
+                        cols={3}
+                        spacing="xl"
+                        breakpoints={[
+                            { maxWidth: 'lg', cols: 2, spacing: 'lg' },
+                            { maxWidth: 'sm', cols: 1, spacing: 'md' }
+                        ]}
                     >
-                        {projects.map((project) => (
-                            <Carousel.Slide key={project.id}>
-                                <Paper p="md" shadow="lg" radius="lg" withBorder h="100%" sx={{ transition: 'all 0.3s ease' }}>
-                                    <Stack spacing="sm" h="100%">
-                                        <Title order={4} fw={700} c="dark">{project.title}</Title>
-                                        <Text c="dimmed" fz="sm" sx={{ flexGrow: 1 }}>{project.description}</Text>
-                                        <Group spacing="xs">
-                                            {project.technologies.map((tech) => (
-                                                <Badge key={tech} size="sm" color="mocha-mousse" variant="filled">{tech}</Badge>
-                                            ))}
-                                        </Group>
-                                        <Group spacing="sm">
-                                            <Anchor href={project.liveUrl} target="_blank" rel="noopener noreferrer" c="mocha-mousse" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                <ExternalLink size={16} /><Text ml="xs">Live Demo</Text>
-                                            </Anchor>
-                                            <Anchor href={project.githubUrl} target="_blank" rel="noopener noreferrer" c="dimmed" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                <Github size={16} /><Text ml="xs">Code</Text>
-                                            </Anchor>
-                                        </Group>
-                                    </Stack>
-                                </Paper>
-                            </Carousel.Slide>
+                        {projects.map((project, index) => (
+                            <ProjectCard key={project.id} project={project} index={index} />
                         ))}
-                    </Carousel>
+                    </SimpleGrid>
                 </Container>
             </Box>
 
@@ -319,18 +596,6 @@ const Portfolio = () => {
                                             </Flex>
                                         </Button>
                                     ))}
-                                    <Button
-                                        component="a"
-                                        href={`/${personalInfo.cvFileName}`}
-                                        download
-                                        variant="filled"
-                                        color="mocha-mousse"
-                                    >
-                                        <Flex justify="center" align="center" gap="xs" wrap="nowrap">
-                                            {React.createElement(iconMap['Download'])}
-                                            <Text>Download My CV</Text>
-                                        </Flex>
-                                    </Button>
                                 </Stack>
                             </motion.div>
                         </Grid.Col>

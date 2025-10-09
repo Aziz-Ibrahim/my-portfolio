@@ -75,8 +75,19 @@ export const aboutContent = {
 // Projects Section
 export const projects = [
   {
-    id: 1,
+    id: 1, 
+    title: "TL;DR AI",
+    image: `${process.env.PUBLIC_URL}/images/tldr.png`, 
+    description: "A Laravel + Vite web app that helps users quickly digest long documents by generating AI-powered summaries. Upload TXT, DOCX, or PDF files and TL;DR AI will use HuggingFace transformers to create concise summaries. Designed to save time, improve productivity, and it’s completely free to use.", 
+    technologies: ["PHP", "Laravel", "Vite", "HuggingFace AI", "JavaScript", "PDF/Docx Processing"], 
+    liveUrl: "https://tl-dr-ai-26e826225710.herokuapp.com/",
+    githubUrl: "https://github.com/aziz-ibrahim/tldr-ai", 
+    featured: true
+  },
+  {
+    id: 2,
     title: "RotaIQ",
+    image: `${process.env.PUBLIC_URL}/images/rotaiq.png`,
     description: "A smart web application designed to help multi-site businesses manage shift gaps and improve workforce efficiency.",
     technologies: ["Django REST", "PostgreSQL", "React.js", "Vite", "Tailwind CSS"],
     liveUrl: "https://rotaiq.uk",
@@ -84,8 +95,9 @@ export const projects = [
     featured: true
   },
   {
-    id: 2,
+    id: 3,
     title: "InfoCrumbs",
+    image: `${process.env.PUBLIC_URL}/images/infocrumbs.png`,
     description: "A sophisticated Django-based web application engineered to revolutionize how users consume digital content.",
     technologies: ["Django", "PostgreSQL", "JavaScript", "Stripe", "Bootstrap"],
     liveUrl: "https://infocrumbs-9d4b700e944a.herokuapp.com/",
@@ -93,8 +105,9 @@ export const projects = [
     featured: true
   },
   {
-    id: 3,
+    id: 4,
     title: "Cinemate",
+    image: `${process.env.PUBLIC_URL}/images/cinemate.png`,
     description: "A dynamic web application designed to empower movie enthusiasts to discover, review, and curate their favorite films.",
     technologies: ["Django", "AJAX", "PostgreSQL", "Bootstrap", "jQuery"],
     liveUrl: "https://cinemate-776f20737057.herokuapp.com/",
@@ -102,8 +115,19 @@ export const projects = [
     featured: true
   },
   {
-    id: 4,
+    id: 5,
+    title: "Math4Kids",
+    image: `${process.env.PUBLIC_URL}/images/m4k.png`,
+    description: "A fun, interactive educational platform designed to help children strengthen their mathematical skills.",
+    technologies: ["HTML", "JavaScript", "CSS", "jQuery", "GitHub Pages"],
+    liveUrl: "https://aziz-ibrahim.github.io/math4kids/game.html",
+    githubUrl: "https://github.com/Aziz-Ibrahim/math4kids",
+    featured: true
+  },
+  {
+    id: 6,
     title: "Boutique Ado",
+    image: `${process.env.PUBLIC_URL}/images/boutique.png`,
     description: "E-commerce platform for a boutique store, featuring product listings, shopping cart, and secure checkout.",
     technologies: ["Django", "AJAX", "PostgreSQL", "Stripe", "AWS"],
     liveUrl: "https://aziz-boutique-ado-99793c83af51.herokuapp.com/",
@@ -111,23 +135,26 @@ export const projects = [
     featured: false
   },
   {
-    id: 5,
-    title: "Math4Kids",
-    description: "A fun, interactive educational platform designed to help children strengthen their mathematical skills.",
-    technologies: ["HTML", "JavaScript", "CSS"],
-    liveUrl: "https://aziz-ibrahim.github.io/math4kids/game.html",
-    githubUrl: "https://github.com/Aziz-Ibrahim/math4kids",
+  id: 7,
+  title: "Code Star",
+  image: `${process.env.PUBLIC_URL}/images/codestar.png`,
+  description: "A coding blog website where developers can share articles, tutorials, and resources related to programming and software development.",
+  technologies: ["Django", "JavaScript", "jQuery", "Heroku"],
+  liveUrl: "https://codelike-009ce67bbb2c.herokuapp.com/",
+  githubUrl: "https://github.com/Aziz-Ibrahim/django-blog",
+  featured: false
+},
+  {
+    id: 8, 
+    title: "Simon Game",
+    image: `${process.env.PUBLIC_URL}/images/simon.png`, 
+    description: "A web-based version of the classic Simon Game that challenges players to remember and replicate increasingly complex sequences of colors.", 
+    technologies: ["HTML", "CSS", "JavaScript", "JavaScript Game", "jQuery", "GitHub Pages"], 
+    liveUrl: "https://aziz-ibrahim.github.io/simon-game/",
+    githubUrl: "https://github.com/Aziz-Ibrahim/simon-game", 
     featured: false
   },
-  {
-    id: 6, 
-    title: "TL;DR AI", 
-    description: "A Laravel + Vite web app that helps users quickly digest long documents by generating AI-powered summaries. Upload TXT, DOCX, or PDF files and TL;DR AI will use HuggingFace transformers to create concise summaries. Designed to save time, improve productivity, and it’s completely free to use.", 
-    technologies: ["PHP", "Laravel", "Vite", "HuggingFace AI", "JavaScript", "PDF/Docx Processing"], 
-    liveUrl: "https://tl-dr-ai-26e826225710.herokuapp.com/",
-    githubUrl: "https://github.com/aziz-ibrahim/tldr-ai", 
-    featured: true
-  },
+
 ];
 
 // Contact Section
@@ -136,5 +163,6 @@ export const contactInfo = {
     links: [
         { text: "Email Me", href: `mailto:${personalInfo.email}`, icon: "Mail" },
         { text: "LinkedIn", href: personalInfo.linkedin, icon: "Linkedin" },
+        { text: "Book a Call", href: "https://calendly.com/aziz-al-hamid/30min", icon: "Calendar" }
     ]
 };
