@@ -18,7 +18,6 @@ import {
     Stack,
     Text,
     Grid,
-    Anchor,
     Paper,
     Badge,
     useMantineTheme,
@@ -55,7 +54,7 @@ const fadeInUp = {
     })
 };
 
-// Magnetic Card Component with dramatic effects
+// Enhanced Magnetic Card Component with dramatic effects
 const MagneticCard = ({ children, delay = 0 }) => {
     const cardRef = useRef(null);
     const [isHovered, setIsHovered] = useState(false);
@@ -97,6 +96,7 @@ const MagneticCard = ({ children, delay = 0 }) => {
             onMouseLeave={handleMouseLeave}
             onMouseEnter={handleMouseEnter}
             style={{
+                width: '100%',
                 rotateX,
                 rotateY,
                 scale,
@@ -123,9 +123,11 @@ const ProjectCard = ({ project, index }) => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={open}
+                style={{ padding: '8px', width: '100%' }}
             >
                 <Paper
                     radius="lg"
+                    p="md"
                     withBorder
                     sx={(theme) => ({
                         height: 300,
@@ -293,6 +295,14 @@ const Portfolio = () => {
     const mantineTheme = useMantineTheme();
     const isDesktop = useMediaQuery(`(min-width: ${mantineTheme.breakpoints.sm})`);
 
+    const isSmallScreen = useMediaQuery('(max-width: 768px)');
+    const aboutGridCols = isSmallScreen ? 1 : 2;
+
+    // Projects grid responsive cols:
+    const isLargeScreen = useMediaQuery(`(min-width: ${mantineTheme.breakpoints.lg})`);
+    const isMediumScreen = useMediaQuery(`(min-width: ${mantineTheme.breakpoints.md})`);
+    const projectsCols = isLargeScreen ? 3 : (isMediumScreen ? 2 : 1);
+    
     useEffect(() => {
         const handleScroll = () => {
             const sections = ['home', 'about', 'projects', 'contact'];
@@ -448,7 +458,7 @@ const Portfolio = () => {
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">About Me</Title>
                     <Grid gutter="xl">
-                        <Grid.Col sm={12} md={12} lg={5}>
+                        <Grid.Col sm={12} md={5} lg={5}>
                             <Stack spacing="md">
                                 {aboutContent.aboutText.map((paragraph, index) => (
                                     <motion.div key={index} custom={index} variants={fadeInUp} initial="hidden" whileInView="visible">
@@ -457,13 +467,10 @@ const Portfolio = () => {
                                 ))}
                             </Stack>
                         </Grid.Col>
-                        <Grid.Col sm={12} md={12} lg={7}>
+                        <Grid.Col sm={12} md={7} lg={7}>
                             <SimpleGrid
-                                cols={2}
+                                cols={aboutGridCols}
                                 spacing="lg"
-                                breakpoints={[
-                                    { maxWidth: 'md', cols: 1 }
-                                ]}
                             >
                                 {Object.values(aboutContent.skills).map((skillSet, index) => (
                                     <MagneticCard key={index} delay={index * 0.1}>
@@ -473,6 +480,7 @@ const Portfolio = () => {
                                             radius="md"
                                             sx={(theme) => ({
                                                 height: '100%',
+                                                minHeight: '180px',
                                                 background: `linear-gradient(135deg, ${theme.white} 0%, ${theme.colors['cream-accent'][0]} 100%)`,
                                                 transition: 'all 0.3s ease',
                                                 border: `3px solid ${theme.colors['mocha-mousse'][2]}`,
@@ -551,12 +559,8 @@ const Portfolio = () => {
                 <Container size="xl">
                     <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
                     <SimpleGrid
-                        cols={3}
+                        cols={projectsCols}
                         spacing="xl"
-                        breakpoints={[
-                            { maxWidth: 'lg', cols: 2, spacing: 'lg' },
-                            { maxWidth: 'sm', cols: 1, spacing: 'md' }
-                        ]}
                     >
                         {projects.map((project, index) => (
                             <ProjectCard key={project.id} project={project} index={index} />
