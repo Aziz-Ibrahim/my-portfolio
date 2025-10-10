@@ -152,7 +152,7 @@ const ProjectCard = ({ project, index }) => {
                         <Image
                             src={project.image || 'https://via.placeholder.com/600x400?text=Project+Image'}
                             alt={project.title}
-                            fit="cover"
+                            fit="contain"
                             height={300}
                             sx={{
                                 transition: 'transform 0.4s ease',
@@ -423,7 +423,7 @@ const Portfolio = () => {
                             transition: 'transform 0.3s ease',
                             '&:hover': { transform: 'scale(1.05)' }
                         }}>
-                            {React.createElement(iconMap[heroContent.icon], { size: 64, color: 'white' })}
+                            {React.createElement(iconMap[heroContent.icon], { size: 64, color: 'rgb(100, 77, 69)' })}
                         </Box>
                         <Title order={1} size="h1" fw={700} c="dark" mb="xs">{personalInfo.name}</Title>
                         <Title order={2} size="h3" fw={500} c="dimmed" mb="md">{personalInfo.title}</Title>
@@ -512,7 +512,7 @@ const Portfolio = () => {
                                                             }
                                                         })}
                                                     >
-                                                        {React.createElement(iconMap[skillSet.icon], { size: 24, color: 'white' })}
+                                                        {React.createElement(iconMap[skillSet.icon], { size: 24, color: 'black' })}
                                                     </Box>
                                                     <Title order={5} fw={700} c="dark">
                                                         {skillSet.title}
