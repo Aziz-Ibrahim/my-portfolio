@@ -186,15 +186,57 @@ const ProjectCard = ({ project, index }) => {
                             }}
                         >
                             <Flex justify="space-between" align="end">
-                                <Title order={3} c="mocha-mousse" fw={700}>
-                                    {project.title}
-                                </Title>
-                                {project.featured && (
-                                    <Badge size="lg" color="mocha-mousse" variant="filled">
-                                        Featured
-                                    </Badge>
-                                )}
+                            <Title order={3} c="mocha-mousse.6" fw={700}>
+                                {project.title}
+                            </Title>
+
+                            {project.category === "professional" && (
+                                <Badge
+                                size="lg"
+                                color="mocha-mousse.6"
+                                variant="filled"
+                                style={{
+                                    backgroundColor: '#644D45',
+                                    color: '#FDFDF5',
+                                    fontWeight: 600,
+                                    borderRadius: '0.5rem',
+                                }}
+                                >
+                                Professional
+                                </Badge>
+                            )}
+
+                            {project.category === "personal" && (
+                                <Badge
+                                size="lg"
+                                variant="light"
+                                style={{
+                                    backgroundColor: '#F5F5DC',
+                                    color: '#513B34',
+                                    fontWeight: 600,
+                                    borderRadius: '0.5rem',
+                                }}
+                                >
+                                Personal Project
+                                </Badge>
+                            )}
+
+                            {project.category === "educational" && (
+                                <Badge
+                                size="lg"
+                                variant="outline"
+                                style={{
+                                    borderColor: '#A39890',
+                                    color: '#412E27',
+                                    fontWeight: 600,
+                                    borderRadius: '0.5rem',
+                                }}
+                                >
+                                Learning Project
+                                </Badge>
+                            )}
                             </Flex>
+
                             <Text c="gray" size="sm" mt="xs" opacity={0.9}>
                                 Click to view details
                             </Text>
@@ -209,13 +251,56 @@ const ProjectCard = ({ project, index }) => {
                 onClose={close}
                 size="lg"
                 title={
-                    <Flex align="center" gap="sm">
-                        <Title order={2} c='mocha-mousse'>{project.title}</Title>
-                        {project.featured && (
-                            <Badge size="lg" color="mocha-mousse" variant="filled">
-                                Featured
-                            </Badge>
-                        )}
+                    <Flex justify="space-between" align="end">
+                    <Title order={3} c="mocha-mousse.6" fw={700}>
+                        {project.title}
+                    </Title>
+
+                    {project.category === "professional" && (
+                        <Badge
+                        size="lg"
+                        color="mocha-mousse.6"
+                        variant="filled"
+                        style={{
+                            backgroundColor: '#644D45',
+                            color: '#FDFDF5',
+                            fontWeight: 600,
+                            borderRadius: '0.5rem',
+                        }}
+                        >
+                        Professional
+                        </Badge>
+                    )}
+
+                    {project.category === "personal" && (
+                        <Badge
+                        size="lg"
+                        variant="light"
+                        style={{
+                            backgroundColor: '#F5F5DC',
+                            color: '#513B34',
+                            fontWeight: 600,
+                            borderRadius: '0.5rem',
+                        }}
+                        >
+                        Personal Project
+                        </Badge>
+                    )}
+
+                    {project.category === "educational" && (
+                        <Badge
+                        size="lg"
+                        variant="outline"
+                        style={{
+                            borderColor: '#A39890',
+                            color: '#412E27',
+                            fontWeight: 600,
+                            borderRadius: '0.5rem',
+                        }}
+                        >
+                        Learning Project
+                        </Badge>
+                    )}
                     </Flex>
                 }
                 padding="xl"
@@ -557,7 +642,7 @@ const Portfolio = () => {
                 }}
             >
                 <Container size="xl">
-                    <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">Featured Projects</Title>
+                    <Title order={2} size="h2" fw={700} ta="center" c="dark" mb="xl">My Work</Title>
                     <SimpleGrid
                         cols={projectsCols}
                         spacing="xl"
