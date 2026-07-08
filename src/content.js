@@ -76,6 +76,21 @@ export const aboutContent = {
 export const projects = [
   {
     id: 1,
+    title: "World Wide Wine",
+    image: `${process.env.PUBLIC_URL}/images/wwwine.png`,
+    category: "Flagship Project",
+    description:
+      "An interactive wine atlas that lets users explore the world's major wine regions through an intuitive map interface. Built to make learning about wine more engaging, the application combines geographical data with detailed information on grape varieties, appellations, climates, wine styles, and regional characteristics in a fast, responsive web experience.",
+    technologies: [
+      "React",
+      "JavaScript", "Leaflet", "GeoJSON", "Mantine UI",
+      "Node.js", "Express", "MongoDB", "REST API"
+    ],
+    liveUrl: "https://wwwine.vercel.app",
+    githubUrl: "https://github.com/aziz-ibrahim/wwwine",
+  },
+  {
+    id: 2,
     title: "VeriAct",
     image: `${process.env.PUBLIC_URL}/images/veriact.png`,
     description: "AI-powered meeting action item tracker built with Next.js and TypeScript. VeriAct automatically extracts, organizes, and reminds users of key takeaways from meeting transcripts — with GDPR-compliant privacy at its core. It supports solo users, team collaboration, and enterprise organizations that can invite a meeting bot to join and process calls automatically.",
@@ -86,10 +101,9 @@ export const projects = [
     liveUrl: "https://veriact.co.uk",
     githubUrl: "https://github.com/aziz-ibrahim/veriact",
     category: "Professional"
-
   },
   {
-    id: 2, 
+    id: 3, 
     title: "TL;DR AI",
     image: `${process.env.PUBLIC_URL}/images/tldr.png`, 
     description: "A Laravel + Vite web app that helps users quickly digest long documents by generating AI-powered summaries. Upload TXT, DOCX, or PDF files and TL;DR AI will use HuggingFace transformers to create concise summaries. Designed to save time, improve productivity, and it’s completely free to use.", 
@@ -97,10 +111,9 @@ export const projects = [
     liveUrl: "https://tl-dr-ai-26e826225710.herokuapp.com/",
     githubUrl: "https://github.com/aziz-ibrahim/tldr-ai", 
     category: "Professional"
-
   },
   {
-    id: 3,
+    id: 4,
     title: "RotaIQ",
     image: `${process.env.PUBLIC_URL}/images/rotaiq.png`,
     description: "A smart web application designed to help multi-site businesses manage shift gaps and improve workforce efficiency.",
@@ -110,7 +123,7 @@ export const projects = [
     category: "Professional"
   },
   {
-    id: 4,
+    id: 5,
     title: "InfoCrumbs",
     image: `${process.env.PUBLIC_URL}/images/infocrumbs.png`,
     description: "A sophisticated Django-based web application engineered to revolutionize how users consume digital content.",
@@ -120,7 +133,7 @@ export const projects = [
     category: "personal"
   },
   {
-    id: 5,
+    id: 6,
     title: "Cinemate",
     image: `${process.env.PUBLIC_URL}/images/cinemate.png`,
     description: "A dynamic web application designed to empower movie enthusiasts to discover, review, and curate their favorite films.",
@@ -130,7 +143,7 @@ export const projects = [
     category: "personal"
   },
   {
-    id: 6,
+    id: 7,
     title: "Math4Kids",
     image: `${process.env.PUBLIC_URL}/images/m4k.png`,
     description: "A fun, interactive educational platform designed to help children strengthen their mathematical skills.",
@@ -140,7 +153,7 @@ export const projects = [
     category: "personal"
   },
   {
-    id: 7,
+    id: 8,
     title: "Boutique Ado",
     image: `${process.env.PUBLIC_URL}/images/boutique.png`,
     description: "E-commerce platform for a boutique store, featuring product listings, shopping cart, and secure checkout.",
@@ -150,7 +163,7 @@ export const projects = [
     category: "educational"
   },
   {
-    id: 8,
+    id: 9,
     title: "Code Star",
     image: `${process.env.PUBLIC_URL}/images/codestar.png`,
     description: "A coding blog website where developers can share articles, tutorials, and resources related to programming and software development.",
@@ -160,7 +173,7 @@ export const projects = [
     category: "educational"
   },
   {
-    id: 9, 
+    id: 10, 
     title: "Simon Game",
     image: `${process.env.PUBLIC_URL}/images/simon.png`, 
     description: "A web-based version of the classic Simon Game that challenges players to remember and replicate increasingly complex sequences of colors.", 
@@ -169,7 +182,6 @@ export const projects = [
     githubUrl: "https://github.com/Aziz-Ibrahim/simon-game", 
     category: "educational"
   },
-
 ];
 
 // Contact Section
