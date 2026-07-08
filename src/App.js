@@ -202,7 +202,7 @@ const ProjectCard = ({ project, index }) => {
                                     borderRadius: '0.5rem',
                                 }}
                                 >
-                                Professional
+                                Professional Project
                                 </Badge>
                             )}
 

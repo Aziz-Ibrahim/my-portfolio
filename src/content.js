@@ -76,9 +76,9 @@ export const aboutContent = {
 export const projects = [
   {
     id: 1,
-    title: "World Wide Wine",
+    title: "WWWine",
     image: `${process.env.PUBLIC_URL}/images/wwwine.png`,
-    category: "Flagship Project",
+    category: "professional",
     description:
       "An interactive wine atlas that lets users explore the world's major wine regions through an intuitive map interface. Built to make learning about wine more engaging, the application combines geographical data with detailed information on grape varieties, appellations, climates, wine styles, and regional characteristics in a fast, responsive web experience.",
     technologies: [
@@ -100,7 +100,7 @@ export const projects = [
     ],
     liveUrl: "https://veriact.co.uk",
     githubUrl: "https://github.com/aziz-ibrahim/veriact",
-    category: "Professional"
+    category: "professional"
   },
   {
     id: 3, 
@@ -110,7 +110,7 @@ export const projects = [
     technologies: ["PHP", "Laravel", "Vite", "HuggingFace AI", "JavaScript", "PDF/Docx Processing"], 
     liveUrl: "https://tl-dr-ai-26e826225710.herokuapp.com/",
     githubUrl: "https://github.com/aziz-ibrahim/tldr-ai", 
-    category: "Professional"
+    category: "professional"
   },
   {
     id: 4,
@@ -120,7 +120,7 @@ export const projects = [
     technologies: ["Django REST", "PostgreSQL", "React.js", "Vite", "Tailwind CSS"],
     liveUrl: "https://rotaiq.uk",
     githubUrl: "https://github.com/aziz-ibrahim/rotaiq",
-    category: "Professional"
+    category: "professional"
   },
   {
     id: 5,
