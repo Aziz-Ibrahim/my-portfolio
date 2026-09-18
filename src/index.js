@@ -7,18 +7,12 @@ import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
-import AnimatedOrbs from './AnimatedOrbs';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <MantineProvider theme={theme}>
+        <MantineProvider theme={theme} forceColorScheme="dark">
             <Notifications position="top-right" />
-            <div style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden' }}>
-                <AnimatedOrbs count={120} />
-                <div style={{ position: 'relative', zIndex: 1 }}>
-                    <App />
-                </div>
-            </div>
+            <App />
         </MantineProvider>
     </React.StrictMode>,
 );

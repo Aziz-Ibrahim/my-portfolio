@@ -9,12 +9,10 @@ import {
     TextInput,
     Textarea,
     Button,
-    useMantineTheme,
     Stack
 } from '@mantine/core';
 
 const ContactForm = () => {
-    const theme = useMantineTheme();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const form = useForm({
@@ -70,16 +68,10 @@ const ContactForm = () => {
         <Box
             component="form"
             onSubmit={form.onSubmit(sendEmail)}
-            sx={{
-                width: '100%',
-                backgroundColor: theme.white,
-                padding: theme.spacing.xl,
-                borderRadius: theme.radius.md,
-                boxShadow: theme.shadows.sm,
-            }}
+            className="contact-form"
         >
-            <Title order={3} fw={600} c="dark" mb="md">Send me a message</Title>
-            <Text c="dimmed" mb="xl">
+            <Title order={3} fw={700} mb="md">Send me a message</Title>
+            <Text className="contact-copy" mb="xl">
                 I'm excited to hear about your projects and ideas. Let's build something great together.
             </Text>
             <Stack>
@@ -103,7 +95,7 @@ const ContactForm = () => {
                     {...form.getInputProps('message')}
                     minRows={5}
                 />
-                <Button type="submit" fullWidth loading={isSubmitting} mt="md">
+                <Button type="submit" fullWidth loading={isSubmitting} mt="md" leftSection={null}>
                     Send Message
                 </Button>
             </Stack>

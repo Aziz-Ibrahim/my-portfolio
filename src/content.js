@@ -3,11 +3,12 @@
 export const personalInfo = {
   name: "Aziz Ibrahim",
   title: "Full Stack Developer",
-  tagline: "Full Stack Developer | Django & Python Expert | React & Node.js Enthusiast",
+  tagline: "Full Stack Developer building dependable Django, Python, React, and AI-powered web products.",
   email: "aziz.ibrahim8@icloud.com",
   github: "https://github.com/aziz-ibrahim",
   linkedin: "https://linkedin.com/in/aziz-ibrahim8",
-  cvFileName: "downloads/my-cv.pdf"
+  cvFileName: "downloads/my-cv.pdf",
+  portrait: `${process.env.PUBLIC_URL}/images/portrait.png`
 };
 
 // Sections Data
@@ -22,6 +23,11 @@ export const heroContent = {
     { href: personalInfo.github, icon: "Github" },
     { href: personalInfo.linkedin, icon: "Linkedin" },
     { href: `mailto:${personalInfo.email}`, icon: "Mail" }
+  ],
+  proofPoints: [
+    { value: "10+", label: "shipped portfolio projects" },
+    { value: "Full-stack", label: "frontend, APIs, data, deployment" },
+    { value: "AI-ready", label: "OpenAI, LangChain, HuggingFace" }
   ]
 };
 
@@ -30,6 +36,10 @@ export const aboutContent = {
   aboutText: [
     "I'm a motivated full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I enjoy building projects that tackle real-world problems — from e-commerce platforms like InfoCrumbs and Boutique Ado, to experimenting with AI tools such as a story generator built using OpenAI's API and LangChain, and TL;DR AI, a Laravel-based project that leverages HuggingFace models to summarize long documents.",
     "Along the way, I’ve gained experience with modern development practices such as testing, clean code standards, and cloud deployment. I’m always eager to expand my skillset, and I take pride in learning new technologies quickly while applying them in practical, project-based settings."
+  ],
+  profileText: [
+    "I'm a full-stack developer with a strong foundation in Python, Django, JavaScript, and React. I focus on building practical web products with real workflows, from e-commerce platforms and dashboards to AI-assisted tools, document processing, and data-driven applications.",
+    "My work spans API design, authentication, payments, database modelling, testing, clean code standards, and cloud deployment. I learn quickly, but I care most about turning that learning into maintainable, user-facing software that can be demonstrated, extended, and trusted."
   ],
   skills: {
     languages: {
@@ -86,7 +96,7 @@ export const projects = [
       "JavaScript", "Leaflet", "GeoJSON", "Mantine UI",
       "Node.js", "Express", "MongoDB", "REST API"
     ],
-    liveUrl: "https://wwwine.vercel.app",
+    liveUrl: "https://wwwine.co.uk",
     githubUrl: "https://github.com/aziz-ibrahim/wwwine",
   },
   {
@@ -190,6 +200,6 @@ export const contactInfo = {
     links: [
         { text: "Email Me", href: `mailto:${personalInfo.email}`, icon: "Mail" },
         { text: "LinkedIn", href: personalInfo.linkedin, icon: "Linkedin" },
-        { text: "Book a Call", href: "https://calendly.com/aziz-al-hamid/30min", icon: "Calendar" }
+        { text: "GitHub Profile", href: personalInfo.github, icon: "Github" }
     ]
 };

@@ -2,30 +2,48 @@ import { createTheme } from '@mantine/core';
 
 export const theme = createTheme({
   colors: {
-    'mocha-mousse': [
-      '#EDECEB',
-      '#D5D0CC',
-      '#BCB4AD',
-      '#A39890',
-      '#8C7F73',
-      '#75665D',
-      '#644D45', // Main color
-      '#513B34',
-      '#412E27',
-      '#30201B'
+    graphite: [
+      '#F6F8FB',
+      '#E5EAF0',
+      '#CBD5E1',
+      '#94A3B8',
+      '#64748B',
+      '#475569',
+      '#334155',
+      '#1E293B',
+      '#111827',
+      '#070B12'
     ],
-    'cream-accent': [
-      '#FDFDF5',
-      '#F9F9E9',
-      '#F5F5DC', // Main color
-      '#DCDCB9',
-      '#C4C4A0',
-      '#ACAC87',
-      '#949471',
-      '#7C7C5A',
-      '#646445',
-      '#4C4C31'
+    signal: [
+      '#F1F5F7',
+      '#E1E9EE',
+      '#C9D7E0',
+      '#AEC2CF',
+      '#94ACBC',
+      '#7F99AB',
+      '#667F91',
+      '#526676',
+      '#3D4D59',
+      '#29343C'
+    ],
+    mint: [
+      '#F1F5F2',
+      '#DFE8E2',
+      '#C8D8CE',
+      '#AEC5B7',
+      '#8FAE9D',
+      '#789787',
+      '#607A6C',
+      '#4D6257',
+      '#394940',
+      '#28332D'
     ],
   },
-  primaryColor: 'mocha-mousse',
+  primaryColor: 'signal',
+  defaultRadius: 'md',
+  fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+  headings: {
+    fontFamily: "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    fontWeight: '750',
+  },
 });
