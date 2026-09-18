@@ -216,7 +216,7 @@ const Portfolio = () => {
                 <Container size="xl">
                     <Flex justify="space-between" align="center" className="nav-inner">
                         <Anchor className="brand-mark" onClick={() => scrollToSection('home')}>
-                            <Terminal size={22} />
+                            <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" className="brand-logo" />
                             <span>{personalInfo.name}</span>
                         </Anchor>
 
