@@ -45,17 +45,29 @@ body {
 }
 
 .nav-inner {
-  min-height: 72px;
+  min-height: 64px;
+  align-items: center;
 }
 
-.brand-mark{
+.brand-mark {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  height: 32px;
+  padding: 0;
   color: var(--text);
   font-weight: 800;
+  line-height: 1;
   text-decoration: none;
   cursor: pointer;
+}
+
+.brand-title {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  margin: 0;
+  line-height: 1;
 }
 
 .brand-logo {

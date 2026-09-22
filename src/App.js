@@ -6,7 +6,6 @@ import {
     Terminal, Layers, ShieldCheck, Cpu
 } from 'lucide-react';
 import {
-    Anchor,
     Badge,
     Box,
     Button,
@@ -21,7 +20,8 @@ import {
     SimpleGrid,
     Stack,
     Text,
-    Title
+    Title,
+    UnstyledButton
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { motion } from 'framer-motion';
@@ -215,10 +215,10 @@ const Portfolio = () => {
             >
                 <Container size="xl">
                     <Flex justify="space-between" align="center" className="nav-inner">
-                        <Anchor className="brand-mark" onClick={() => scrollToSection('home')}>
+                        <UnstyledButton className="brand-mark" onClick={() => scrollToSection('home')}>
                             <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" className="brand-logo" />
-                            <span>{personalInfo.name}</span>
-                        </Anchor>
+                            <Text component="span" className="brand-title">{personalInfo.name}</Text>
+                        </UnstyledButton>
 
                         {isDesktop ? (
                             <Group gap="xs">
